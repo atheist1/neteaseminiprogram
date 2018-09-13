@@ -151,6 +151,10 @@ Page({
     }
     this.getMusic(option)
   },
+  //删除当前歌曲
+  deleteMusic:function(){
+    console.log(app.globalData)
+  },
   prev:function(){
     
     let prevIndex = (app.globalData.currentPlayList.currentPlay.index-1)
@@ -284,6 +288,7 @@ Page({
         showLrc:false
       })
       this.showLrcs(option.id)
+      
       if(backPlay.isPause){
         this.rotate(true)
       }else{
@@ -376,7 +381,7 @@ Page({
         viewIndex = index++
         if(viewIndex <= 10){
           viewIndex = 0
-        }else if(viewIndex<=lrc.timeArr.length-8){
+        }else if(viewIndex>=lrc.timeArr.length-5){
           viewIndex = lrc.timeArr.length-1
         }else{
           viewIndex -=8
@@ -409,9 +414,9 @@ Page({
     wx.hideTabBar()
     //拦截请求，不同地方跳转不同
     
-    //如果请求的是同一个音乐文件
+    //如果不是首次进去
     if(backPlay && backPlay.id ){
-
+      
       this.reloadMusic(option,backPlay)
     }else{//首次进入
       this.getMusic(option)
@@ -424,7 +429,9 @@ Page({
     * 实现了后台播放音乐的一半，另一半需要手动保存当前播放时间，背景，music url,页面进入时自动跳转
     * 此处本来准备用状态机制，但是小程序使用redux稍微麻烦了点，待后续改善
     */
-
+   //手动删除interval防止内存调用过大
+   clearInterval(this.interval)
+   this.interval = null
    app.globalData.currentPlayList.backPlayInfo = {
      url:this.data.audio.url,
      context:this.data.audio.innerAudioContext,

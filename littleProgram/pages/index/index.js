@@ -95,14 +95,14 @@ Page({
 
   },
   inputs:function(r){
-    console.log(r)
-    // this.searchKeyWord({
-    //   currentTarget:{
-    //     dataset:{
-    //       item:''
-    //     }
-    //   }
-    // })
+    this.searchKeyWord({
+      currentTarget:{
+        dataset:{
+          item:r.detail.value
+        }
+      }
+    })
+    
   },
   deleteHistory:function(r){
     let _this = this;
@@ -116,10 +116,10 @@ Page({
     );
   },
   seeSongs:function(r){
-    
+    app.globalData.currentPlayList.currentPlay = r.currentTarget.dataset.currentsong
+    app.globalData.currentPlayList.currentPlay.index = app.globalData.currentPlayList.listArr.length 
     if(!~app.globalData.currentPlayList.listId.indexOf(r.currentTarget.dataset.id)){
-      app.globalData.currentPlayList.currentPlay = r.currentTarget.dataset.currentsong
-      app.globalData.currentPlayList.currentPlay.index = app.globalData.currentPlayList.listArr.length 
+     
       app.globalData.currentPlayList.listId.push(app.globalData.currentPlayList.currentPlay.id)
       app.globalData.currentPlayList.listArr.push(app.globalData.currentPlayList.currentPlay)
     }
@@ -170,5 +170,6 @@ Page({
         data: []
       });
     }
+    this.getHot()
   },
 })

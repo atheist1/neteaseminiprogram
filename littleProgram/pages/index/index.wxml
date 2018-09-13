@@ -1,6 +1,6 @@
 <!--index.wxml-->
 <view class="container">
-  <button bind:tap="getHot">get</button>
+ 
   <input placeholder="" focus="{{ searchFocus }}" value="{{inputValue}}" type="text" confirm-type="search" bindinput="inputs"/>
   <view  id="search-panel" wx:if="{{ panelShow }}">
     <view class='weui-flex'>

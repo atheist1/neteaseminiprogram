@@ -39,14 +39,15 @@
     </view>
   
     <view class="controller" >
-      <image class="" src="../../assets/image/garbage.png" mode="aspectFit" lazy-load="false"></image>
+      
       <view class="center-ctn">
+        <image class="" src="../../assets/image/garbage.png" mode="aspectFit" lazy-load="false" bind:tap="deleteMusic"></image>
         <image class="" src="../../assets/image/previous.png" mode="aspectFit" lazy-load="false" bind:tap="prev"></image>
         <image class="" src="{{audio.pauseOrPlayImg}}" mode="aspectFit" lazy-load="false"   bind:tap="pauseOrPlay" data-btn="btn">  </image>
         <image class="" src="../../assets/image/next.png" mode="aspectFit" lazy-load="false" bind:tap="next"></image>
+        <image class="" src="../../assets/image/comment.png" mode="aspectFit" lazy-load="false"></image>
       </view>
-      <image class="" src="../../assets/image/comment.png" mode="aspectFit" lazy-load="false">
-      </image>
+      
     </view>
     <view class="audioContent">
       <text class="startTime">{{audio.startTime}}</text>
