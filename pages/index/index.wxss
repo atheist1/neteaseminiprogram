@@ -1,0 +1,161 @@
+/**index.wxss**/
+.weui-flex {
+  flex-wrap: wrap;
+}
+.ui-hot-item{ 
+  height: 64rpx;
+  margin-right: 16rpx;
+  margin-bottom: 16rpx;
+  padding: 0 20rpx;
+  font-size: 14px;
+  line-height: 64rpx;
+  color: #333;
+  border:2rpx solid #d3d4da;
+  border-radius:64rpx;
+}
+.weui-flex__item{
+  
+  flex: 0 0 auto;
+ 
+}
+input{
+  font-size: 14px;
+}
+#search-panel .search-history .history-item{
+  display: flex;
+  width:100%;
+  align-items: center;
+}
+#search-panel .search-history .image{
+  margin: 0 20rpx;
+  display: inline-block;
+  vertical-align: middle;
+  background-position: 0 0;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 30rpx;
+  height: 30rpx;
+ 
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMCAzMCI+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBmaWxsPSIjYzljYWNhIiBkPSJtMTUgMzBjLTguMjg0IDAtMTUtNi43MTYtMTUtMTVzNi43MTYtMTUgMTUtMTUgMTUgNi43MTYgMTUgMTUtNi43MTYgMTUtMTUgMTVtMC0yOGMtNy4xOCAwLTEzIDUuODItMTMgMTNzNS44MiAxMyAxMyAxMyAxMy01LjgyIDEzLTEzLTUuODItMTMtMTMtMTNtNyAxNmgtOGMtLjU1MiAwLTEtLjQ0Ny0xLTF2LTEwYzAtLjU1My40NDgtMSAxLTFzMSAuNDQ3IDEgMXY5aDdjLjU1MyAwIDEgLjQ0NyAxIDFzLS40NDcgMS0xIDEiLz48L3N2Zz4=)
+}
+#search-panel .search-history .content {
+ 
+  height: 90rpx;
+  flex: 1;
+  line-height: 90rpx;
+  display:inline-block;
+  font-size: 15px;
+  border-bottom: 1px solid rgba(0, 0, 0, .1);
+  
+}
+#search-panel .search-history .content .icon-close-ctn {
+
+  width: 64rpx;
+  height: 64rpx;
+  font-size: 12px;
+  color:rgba(0, 0, 0, .3);
+  float:right;
+}
+
+#search-panel .search-history .cotent text {
+  margin-right: 20rpx;
+ 
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: normal;
+}
+#search-detail .mutil-search .search-top{
+  margin-left: 20rpx;
+  font-size: 12px;
+  line-height: 16px;
+  color: #666;
+}
+#search-detail .mutil-search .image-ctn{
+  position: relative;
+ 
+  height: 50px;
+  margin-right: 15px;
+  line-height: 0;
+}
+#search-detail .mutil-search .arrow{
+  position: absolute;
+  right: 45rpx;
+  color:#9e9e9e;
+}
+#search-detail .mutil-search .album-item{
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  height: 66px;
+  margin-left: 10px;
+  padding: 8px 10px 8px 0;
+  box-sizing: border-box;
+  border-bottom: 1px solid rgba(0, 0, 0, .1);
+}
+#search-detail .mutil-search #album .image-ctn::after{
+  content: "";
+  position: absolute;
+  top: 4rpx;
+  right: -20rpx;
+  width: 20rpx;
+  height: 92rpx;
+  background-repeat: no-repeat;
+  background-size: 332rpx 194rpx;
+  background-image: url(//s3.music.126.net/m/s/img/index_icon_2x.png?5207a28…);
+  background-position: 0 -60rpx;
+}
+
+#search-detail .mutil-search image {
+  width: 100rpx;
+  height: 100rpx;
+}
+#search-detail .mutil-search image.mv{
+  width:168rpx;
+}
+#search-detail .mutil-search  .album-item .content{
+  font-size: 14px;
+}
+#search-detail .mutil-search  .album-item .content .author {
+  font-size: 12px;
+  line-height: 15px;
+  color: #999;
+}
+#search-detail .single-list {
+
+  padding: 0 20rpx 20rpx 20rpx;
+}
+#search-detail .single-list .single-content {
+  padding: 12rpx 0;
+  border-bottom: 2rpx solid rgba(0, 0, 0, .1);
+}
+#search-detail .single-list .songsName{
+  font-size: 17px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: normal;
+  width: 90%;
+}
+#search-detail .single-list .play {
+  display: inline-block;
+  width: 60rpx;
+  height: 60rpx;
+  
+  background: url(//s3.music.126.net/m/s/img/index_icon_2x.png?5207a28c3767992ca4bb6d4887c74880) no-repeat;
+  background-size: 335rpx 194rpx;
+  background-position: -48rpx 0;
+}
+#search-detail .artistName{
+  font-size: 12px;
+  color: #888;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  display:inline-block;
+  width:91%;
+
+}

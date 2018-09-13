@@ -1,0 +1,81 @@
+<!--index.wxml-->
+<view class="container">
+  <button bind:tap="getHot">get</button>
+  <input placeholder="" focus="{{ searchFocus }}" value="{{inputValue}}" type="text" confirm-type="search" bindinput="inputs"/>
+  <view  id="search-panel" wx:if="{{ panelShow }}">
+    <view class='weui-flex'>
+      <view wx:for="{{ hotSearch }}" class="weui-flex__item " wx:key="">
+        <view class="ui-hot-item" bind:tap="searchKeyWord" data-item="{{ item.first }}"> {{ item.first }}</view>
+      </view>
+    </view>
+    <view class="search-history">
+      
+      <view class="history-item" wx:for="{{searchHistory}}" wx:key="">
+        <view class="image"></view>
+        <view class="content" bind:tap="searchKeyWord" data-item="{{item}}">
+          <text >{{item}}</text>
+          <view class="icon-close-ctn" data-index="{{index}}" catch:tap="deleteHistory">
+            X
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <view id="search-detail" wx:else>
+    <view class="mutil-search">
+      <text class="search-top">最佳匹配</text>
+      <view id="album">
+        <view wx:for="{{  multimatch.album }}" class="album-item" wx:key="">
+          <view class="image-ctn">
+            <image src="{{ item.picUrl }}" mode="aspectFit"/>
+            
+          </view> 
+          <view class="content">
+            <view class="type">专辑 :  {{item.name}}</view>
+            <view class="author">{{item.artist.name}}</view>
+          </view> 
+          <view class="arrow">></view>
+        </view>
+      </view>
+      <view id="artist">
+        <view wx:for="{{ multimatch.artist }}" class="album-item" wx:key="">
+          <view class="image-ctn">
+            <image src="{{ item.img1v1Url }}" mode="aspectFit"/>
+            
+          </view>
+          <view class="content">
+            <view class="type">歌手 :  {{item.name}} {{item.transNames.length?'('+item.transNames[0]+')':item.alias.length?'('+item.alias[0]+')':''}}</view>
+            <view class="author">{{item.artist.name}}</view>
+          </view>
+          <view class="arrow">></view>
+        </view>
+      </view>
+      <view id="mv">
+        <view wx:for="{{ multimatch.mv }}" class="album-item" wx:key="">
+          <view class="image-ctn">
+            <image src="{{ item.cover }}" mode="scaleToFill" class="mv" />
+            
+          </view>
+          <view class="content">
+            <view class="type">MV :  {{ item.name }}</view>
+            <view class="author">{{item.artistName}}</view>
+          </view>
+          <view class="arrow">></view>
+        </view>
+      </view>
+    </view>
+    <view class="single-list">
+      <view wx:for="{{searchData}}" class="single-content" bind:tap="seeSongs" data-id="{{item.id}}" wx:key="item.id" data-aId="{{ item.album.id }}" data-currentSong="{{item}}">
+        <view class="songsName">{{item.name}}</view>
+        <view class="artistName" >
+          <text wx:for="{{item.artists}}" wx:for-item="artist" wx:for-index="indexs" wx:key="indexs">{{artist.name}}{{indexs!==item.artists.length-1?'/':'  -'+item.album.name}}</text>
+          
+        </view>
+        <view class="play"></view>
+      </view>
+    </view>
+
+  </view>
+</view>
+  

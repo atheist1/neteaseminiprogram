@@ -1,0 +1,8 @@
+/**app.wxss**/
+@import './weui.wxss';
+
+.clearfix:after{
+  content:'';
+  display: block;
+  clear: both;
+}
