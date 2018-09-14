@@ -14,12 +14,37 @@
   border-radius:64rpx;
 }
 .weui-flex__item{
-  
+
   flex: 0 0 auto;
  
 }
 input{
   font-size: 14px;
+}
+.container .top {
+  background-color: #d43c33;
+}
+.container .top image {
+  width: 64rpx;
+  height: 64rpx;
+  align-self: center;
+  margin:0 10rpx;
+}
+.container .top .weui-search-bar {
+  border-top: 0;
+  border-bottom: 0;
+
+}
+.container .top .weui-flex__item {
+  flex: 5 0 auto;
+  background-color: #d43c33;
+}
+.container .weui-search-bar__cancel-btn {
+  font-size: 16px;
+  color:#fff;
+}
+#search-panel {
+  padding-top: 20rpx;
 }
 #search-panel .search-history .history-item{
   display: flex;
@@ -158,4 +183,8 @@ input{
   display:inline-block;
   width:91%;
 
+}
+.main .banner image{
+  width: 750rpx;
+  height: 300rpx;
 }

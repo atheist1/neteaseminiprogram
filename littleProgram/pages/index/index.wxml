@@ -1,81 +1,111 @@
 <!--index.wxml-->
 <view class="container">
- 
-  <input placeholder="" focus="{{ searchFocus }}" value="{{inputValue}}" type="text" confirm-type="search" bindinput="inputs"/>
-  <view  id="search-panel" wx:if="{{ panelShow }}">
-    <view class='weui-flex'>
-      <view wx:for="{{ hotSearch }}" class="weui-flex__item " wx:key="">
-        <view class="ui-hot-item" bind:tap="searchKeyWord" data-item="{{ item.first }}"> {{ item.first }}</view>
-      </view>
-    </view>
-    <view class="search-history">
-      
-      <view class="history-item" wx:for="{{searchHistory}}" wx:key="">
-        <view class="image"></view>
-        <view class="content" bind:tap="searchKeyWord" data-item="{{item}}">
-          <text >{{item}}</text>
-          <view class="icon-close-ctn" data-index="{{index}}" catch:tap="deleteHistory">
-            X
+  <view class="top weui-flex" hover-class="none" hover-stop-propagation="false">
+      <image class="" src="../../assets/image/recording.png" mode="aspectFit" lazy-load="false" binderror="" bindload=""> </image>
+      <view class="weui-search-bar weui-flex__item">
+        <view class="weui-search-bar__form">
+          <view class="weui-search-bar__box">
+              <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+              <input placeholder="" placeholder="搜索" focus="{{ searchFocus }}" value="{{inputValue}}" type="text" confirm-type="search" bindinput="inputs"  class="weui-search-bar__input" />
+              
+              <view class="weui-icon-clear" wx:if="{{inputValue.length > 0}}" bindtap="clearInput">
+                  <icon type="clear" size="14"></icon>
+              </view>
           </view>
+          <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
+              <icon class="weui-icon-search" type="search" size="14"></icon>
+              <view class="weui-search-bar__text">搜索</view>
+          </label>
         </view>
+        <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
       </view>
-    </view>
+      <image class="" src="../../assets/image/recording.png" mode="aspectFit" lazy-load="false" binderror="" bindload=""></image>
   </view>
   
-  <view id="search-detail" wx:else>
-    <view class="mutil-search">
-      <text class="search-top">最佳匹配</text>
-      <view id="album">
-        <view wx:for="{{  multimatch.album }}" class="album-item" wx:key="">
-          <view class="image-ctn">
-            <image src="{{ item.picUrl }}" mode="aspectFit"/>
-            
-          </view> 
-          <view class="content">
-            <view class="type">专辑 :  {{item.name}}</view>
-            <view class="author">{{item.artist.name}}</view>
-          </view> 
-          <view class="arrow">></view>
+  <view class="search" hover-class="none" hover-stop-propagation="false" wx:if="{{ panelShow }}">
+      <view  id="search-panel" wx:if="{{ searchPanelShow }}">
+        <view class='weui-flex'>
+          <view wx:for="{{ hotSearch }}" class="weui-flex__item " wx:key="">
+            <view class="ui-hot-item" bind:tap="searchKeyWord" data-item="{{ item.first }}"> {{ item.first }}</view>
+          </view>
         </view>
-      </view>
-      <view id="artist">
-        <view wx:for="{{ multimatch.artist }}" class="album-item" wx:key="">
-          <view class="image-ctn">
-            <image src="{{ item.img1v1Url }}" mode="aspectFit"/>
-            
-          </view>
-          <view class="content">
-            <view class="type">歌手 :  {{item.name}} {{item.transNames.length?'('+item.transNames[0]+')':item.alias.length?'('+item.alias[0]+')':''}}</view>
-            <view class="author">{{item.artist.name}}</view>
-          </view>
-          <view class="arrow">></view>
-        </view>
-      </view>
-      <view id="mv">
-        <view wx:for="{{ multimatch.mv }}" class="album-item" wx:key="">
-          <view class="image-ctn">
-            <image src="{{ item.cover }}" mode="scaleToFill" class="mv" />
-            
-          </view>
-          <view class="content">
-            <view class="type">MV :  {{ item.name }}</view>
-            <view class="author">{{item.artistName}}</view>
-          </view>
-          <view class="arrow">></view>
-        </view>
-      </view>
-    </view>
-    <view class="single-list">
-      <view wx:for="{{searchData}}" class="single-content" bind:tap="seeSongs" data-id="{{item.id}}" wx:key="item.id" data-aId="{{ item.album.id }}" data-currentSong="{{item}}">
-        <view class="songsName">{{item.name}}</view>
-        <view class="artistName" >
-          <text wx:for="{{item.artists}}" wx:for-item="artist" wx:for-index="indexs" wx:key="indexs">{{artist.name}}{{indexs!==item.artists.length-1?'/':'  -'+item.album.name}}</text>
+        <view class="search-history">
           
+          <view class="history-item" wx:for="{{searchHistory}}" wx:key="">
+            <view class="image"></view>
+            <view class="content" bind:tap="searchKeyWord" data-item="{{item}}">
+              <text >{{item}}</text>
+              <view class="icon-close-ctn" data-index="{{index}}" catch:tap="deleteHistory">
+                X
+              </view>
+            </view>
+          </view>
         </view>
-        <view class="play"></view>
       </view>
-    </view>
+      <view id="search-detail" wx:else>
+        <view class="mutil-search">
+          <text class="search-top">最佳匹配</text>
+          <view id="album">
+            <view wx:for="{{  multimatch.album }}" class="album-item" wx:key="">
+              <view class="image-ctn">
+                <image src="{{ item.picUrl }}" mode="aspectFit"/>
+                
+              </view> 
+              <view class="content">
+                <view class="type">专辑 :  {{item.name}}</view>
+                <view class="author">{{item.artist.name}}</view>
+              </view> 
+              <view class="arrow">></view>
+            </view>
+          </view>
+          <view id="artist">
+            <view wx:for="{{ multimatch.artist }}" class="album-item" wx:key="">
+              <view class="image-ctn">
+                <image src="{{ item.img1v1Url }}" mode="aspectFit"/>
+                
+              </view>
+              <view class="content">
+                <view class="type">歌手 :  {{item.name}} {{item.transNames.length?'('+item.transNames[0]+')':item.alias.length?'('+item.alias[0]+')':''}}</view>
+                <view class="author">{{item.artist.name}}</view>
+              </view>
+              <view class="arrow">></view>
+            </view>
+          </view>
+          <view id="mv">
+            <view wx:for="{{ multimatch.mv }}" class="album-item" wx:key="">
+              <view class="image-ctn">
+                <image src="{{ item.cover }}" mode="scaleToFill" class="mv" />
+                
+              </view>
+              <view class="content">
+                <view class="type">MV :  {{ item.name }}</view>
+                <view class="author">{{item.artistName}}</view>
+              </view>
+              <view class="arrow">></view>
+            </view>
+          </view>
+        </view>
+        <view class="single-list">
+          <view wx:for="{{searchData}}" class="single-content" bind:tap="seeSongs" data-id="{{item.id}}" wx:key="item.id" data-aId="{{ item.album.id }}" data-currentSong="{{item}}">
+            <view class="songsName">{{item.name}}</view>
+            <view class="artistName" >
+              <text wx:for="{{item.artists}}" wx:for-item="artist" wx:for-index="indexs" wx:key="indexs">{{artist.name}}{{indexs!==item.artists.length-1?'/':'  -'+item.album.name}}</text>
+              
+            </view>
+            <view class="play"></view>
+          </view>
+        </view>
 
+      </view>
+  </view>
+  <view class="main" wx:else>
+    <swiper class="banner" autoplay="{{true}}" indicator-dots="{{true}}" interval="3000">
+      <block wx:for="{{banner}}">
+        <swiper-item>
+          <image src="{{item.picUrl}}" class="slide-image" mode="aspectFill" height="100%"/>
+        </swiper-item>
+      </block>
+    </swiper>
   </view>
 </view>
   

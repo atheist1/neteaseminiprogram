@@ -167,6 +167,18 @@
 .controller .center-ctn image {
   margin: 0 20rpx;
 }
+.controller .center-ctn view {
+  display: inline-block;
+  position: relative;
+}
+.controller .center-ctn text {
+  position:absolute;
+  top:-50rpx;
+  font-size:12px;
+  color:#fff;
+  left:65rpx;
+}
+
 .controller{
   display: flex;
   justify-content:space-around;

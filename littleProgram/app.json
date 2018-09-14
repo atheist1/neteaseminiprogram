@@ -1,12 +1,32 @@
 {
   "pages":[
     "pages/index/index",
-    "pages/songs/index"
+    "pages/songs/index",
+    "pages/comment/index"
   ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "neteaseMusic",
     "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "backgroundColor":"rgba(255,255,255,.1)",
+    "selectedColod":"#d3d4da",
+    "list":[
+      {
+        "pagePath":"pages/index/index",
+        "text":"发现"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "text": "设置"
+        
+      },{
+        "pagePath": "pages/index/index",
+        "text": "帮助"
+
+      }
+    ]
   }
 }

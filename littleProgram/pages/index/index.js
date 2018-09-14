@@ -1,4 +1,5 @@
 //index.js
+import regeneratorRuntime from '../../utils/runtime-module.js'
 //获取应用实例
 const app = getApp()
 Page({
@@ -6,7 +7,8 @@ Page({
     hotSearch:[],
     inputValue:'',
     searchFocus:true,
-    panelShow:true,
+    panelShow:false,
+    searchPanelShow:false,
     multimatch:[],
     searchData:[],
     currentSearch:{
@@ -14,12 +16,13 @@ Page({
       keywords:''
     }, 
     searchCount:0,
-    searchHistory:[]
+    searchHistory:[],
+    banner:[]
   }, 
   getHot:function(){
     var _this = this;
     this.setData({
-      panelShow:true 
+      searchPanelShow:true
     }) 
       
     wx.request({
@@ -36,6 +39,7 @@ Page({
         }
     });
   },
+  
   searchKeyWord:function(r){
     var _this = this;
     let name = r.currentTarget.dataset.item;
@@ -54,7 +58,7 @@ Page({
       {
         'inputValue':name,
         "searchFocus":true,
-        'panelShow':false,
+        'searchPanelShow':false,
         'currentSearch.keywords':name,
         'currentSearch.offset':0,
         'searchHistory':wx.getStorageSync('searchHistory')
@@ -104,6 +108,17 @@ Page({
     })
     
   },
+  getBanner :function(){
+    let _this = this
+    app.get('/banner')
+      .then((res)=>{
+        if(res.code === 200){
+          _this.setData({
+            banner:res.banners
+          })
+        }
+      })
+  },
   deleteHistory:function(r){
     let _this = this;
  
@@ -123,15 +138,45 @@ Page({
       app.globalData.currentPlayList.listId.push(app.globalData.currentPlayList.currentPlay.id)
       app.globalData.currentPlayList.listArr.push(app.globalData.currentPlayList.currentPlay)
     }
+    //加载评论
+    async function getCommentAccount(){
+      let res = await app.get('/comment/music?id='+app.globalData.currentPlayList.currentPlay.id+'&limit=1')
+      console.log(res)
+      if(res.code===200){
+        wx.navigateTo({
+          url:'../songs/index?id='+r.currentTarget.dataset.id+'&album='+r.currentTarget.dataset.aid+'&commentAccount='+res.total,
+        });
+      }     
+    }
+    getCommentAccount()
     
-    wx.navigateTo({
-      url:'../songs/index?id='+r.currentTarget.dataset.id+'&album='+r.currentTarget.dataset.aid,
-    }); 
+    
   },
-  
+  //input事件
+  showInput: function () {
+    this.getHot()
+    this.setData({
+        inputShowed: true,
+        searchFocus:true,
+        panelShow:true
+    });
+  },
+  hideInput: function () {
+    this.setData({
+        inputValue: "",
+        inputShowed: false,
+        panelShow:false
+    });
+   
+  },
+  clearInput: function () {
+      this.setData({
+        inputValue: ""
+      });
+  },
   onReachBottom:function(e){
     let _this = this;
-    if(this.data.searchCount >= this.data.currentSearch.offset+30 && !this.data.panelShow){
+    if(this.data.searchCount >= this.data.currentSearch.offset+30 && !this.data.searchPanelShow){
       this.setData({
         'currentSearch.offset':(_this.data.currentSearch.offset+30),
       });
@@ -158,7 +203,9 @@ Page({
     
     
   },
+  
   onLoad:function(){
+    this.getBanner()
     if(wx.getStorageSync('searchHistory')&&wx.getStorageSync('searchHistory').length){
       this.setData({
         searchHistory:wx.getStorageSync('searchHistory')
@@ -170,6 +217,6 @@ Page({
         data: []
       });
     }
-    this.getHot()
+   
   },
 })

@@ -30,7 +30,9 @@ Page({
     },
     pageShow:false,
     netWork:{},
-    rotate:0
+    rotate:0,
+    total:0,
+    commentAccount:0
   },
   //旋转
   rotate:function(stop){
@@ -399,6 +401,28 @@ Page({
     }
     
   },
+  //设置评论
+  setComment:function(account){
+    if(account>=999&&account<10000){
+      account = '999+'
+    }else if(account>=10000){
+      account = '1w+'
+    }
+    this.setData({
+      commentAccount:account
+    })
+  },
+  //跳转到评论
+  seeComments:function(){
+    wx.navigateTo({
+      url: '../comment/index?id='+app.globalData.currentPlayList.currentPlay.id,
+      success: (result)=>{
+        
+      },
+      fail: ()=>{},
+      complete: ()=>{}
+    });
+  },
   onLoad:function(option){
     let _this = this,backPlay =  app.globalData.currentPlayList.backPlayInfo
     /*
@@ -408,6 +432,7 @@ Page({
     *第三条进入的是当前播放音乐，第三条线将会使用app.global数据，减少渲染
     * 
     */
+    this.setComment(option.commentAccount)
     wx.getNetworkType({
       success: (result)=>{
         _this.setData({

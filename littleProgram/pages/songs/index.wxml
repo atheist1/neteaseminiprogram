@@ -46,7 +46,13 @@
         <image class="" src="../../assets/image/previous.png" mode="aspectFit" lazy-load="false" bind:tap="prev"></image>
         <image class="" src="{{audio.pauseOrPlayImg}}" mode="aspectFit" lazy-load="false"   bind:tap="pauseOrPlay" data-btn="btn">  </image>
         <image class="" src="../../assets/image/next.png" mode="aspectFit" lazy-load="false" bind:tap="next"></image>
-        <image class="" src="../../assets/image/comment.png" mode="aspectFit" lazy-load="false"></image>
+        <view bind:tap="seeComments">
+          <text >
+            {{commentAccount}}
+          </text>
+          <image class="" src="../../assets/image/comment.png" mode="aspectFit" lazy-load="false"></image>
+        </view>
+        
       </view>
       
     </view>
