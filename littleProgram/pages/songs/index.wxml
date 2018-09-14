@@ -33,7 +33,8 @@
         <scroll-view class="" scroll-x="false" scroll-y="true" upper-threshold="50" lower-threshold="50" 
           scroll-top="0" scroll-left="0" scroll-into-view="{{audio.lrc.viewId}}" scroll-with-animation="false" enable-back-to-top="false" 
           bindscrolltoupper="" bindscrolltolower="" bindscroll="" style="height:850rpx;">
-          <view wx:for="{{audio.lrc.lrcArr}}" wx:for-index="index" class="lrc-item {{index===audio.lrc.index?'lrcOn':''}}" id="lrc_{{index}}">{{item}}</view>
+          <view wx:if="{{!audio.lrc.lrcArr.length}}">暂时没有歌词</view>
+          <view wx:for="{{audio.lrc.lrcArr}}" wx:for-index="index" class="lrc-item {{index===audio.lrc.index?'lrcOn':''}}" id="lrc_{{index}}" wx:if="{{item.length}}"><text>{{item}}</text></view>
         </scroll-view>
       </view>
     </view>

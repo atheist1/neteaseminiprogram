@@ -1,5 +1,5 @@
 import regeneratorRuntime from '../../utils/runtime-module.js'
-import {trans,random,transTime} from '../../utils/util.js'
+import {trans,random,transConcat } from '../../utils/util.js'
 const app = getApp();
 Page({
   data:{
@@ -134,8 +134,10 @@ Page({
     
     let nextIndex
     let currentPlay,option
+   
     switch (this.data.audio.playType) {
       case 'next':
+     
         nextIndex = (app.globalData.currentPlayList.currentPlay.index+1)%app.globalData.currentPlayList.listArr.length;
         break;
       case 'random':
@@ -153,7 +155,21 @@ Page({
   },
   //删除当前歌曲
   deleteMusic:function(){
-    console.log(app.globalData)
+  
+    const index = app.globalData.currentPlayList.currentPlay.index
+    
+    if(app.globalData.currentPlayList.listArr.length > 1){
+      //后面一个数组需要把index改变
+     
+      app.globalData.currentPlayList.listArr.splice(index,1)
+      app.globalData.currentPlayList.listId.splice(index,1)
+      app.globalData.currentPlayList.listArr.forEach((item,index) =>{
+        item.index = index;
+      })
+      app.globalData.currentPlayList.backPlayInfo = {}
+    }
+   
+    this.next()
   },
   prev:function(){
     
@@ -318,23 +334,18 @@ Page({
   showLrc:false,
   //展示歌词并转换
   showLrcs:function(id){
-    let _this = this,lrcArr = [],timeArr =[ ]
-    ,transLrcArr=[]//翻译过后的歌词
+    let _this = this,timeArr = [],lrcArr = []
    
     app.get('/lyric',{id:id})
       .then((res)=>{
         
         if(res.code===200){
-          
-          timeArr = transTime(res.lrc.lyric.replace(/[\n\r]/g,'\n'))
-          lrcArr = res.lrc.lyric.split('\n').map((item)=>{
-              return item.replace(/\[.*?\]/g,'')
-          }).filter((item,index)=>{
-            if(!item){
-              timeArr.splice(index,1)
+          /**中英文歌词合并 */
+            if(res.lrc){
+              timeArr = transConcat(res).timeArr
+              lrcArr = transConcat(res).lrcArr
             }
-            return item
-          })
+          
           _this.setData({
             ['audio.lrc.timeArr']:timeArr,
             ['audio.lrc.lrcArr']:lrcArr,
@@ -343,13 +354,7 @@ Page({
           })
         }
       })
-      .catch(()=>{
-        wx.showToast({
-          title: '网络错误',
-          icon: 'error',
-          duration: 3000
-        });
-      })
+      
   },
   //跳转歌词位置
   seekLrc:function(time){
@@ -359,13 +364,13 @@ Page({
     if(time){
       
       let viewTime = time;
-      if(time <= 10){
+      if(time <= 5){
         viewTime = 0;
 
       }else if(time>=lrc.timeArr.length-5){//直接跳到倒数第五句话
         viewIndex = lrc.timeArr.length-1
       }else{
-        viewTime -=8
+        viewTime -=3
       }
       this.setData({
         ['audio.lrc.index']:time,
@@ -379,12 +384,12 @@ Page({
       if(lrc.timeArr[lrc.index] && lrc.timeArr[lrc.index] <= innerAudioContext.currentTime){
         
         viewIndex = index++
-        if(viewIndex <= 10){
+        if(viewIndex <= 5){
           viewIndex = 0
         }else if(viewIndex>=lrc.timeArr.length-5){
           viewIndex = lrc.timeArr.length-1
         }else{
-          viewIndex -=8
+          viewIndex -=3
         }
         this.setData({
           ['audio.lrc.index']:index,
@@ -440,7 +445,7 @@ Page({
      progress:this.data.audio.progress,
      BackgroundImg:this.data.BackgroundImg,
      songImage:this.data.songImage,
-     id:this.data.id,
+     id:this.data.audio.songInfo.id,
      endTime:this.data.audio.endTime,
      end:this.data.audio.end,
      songInfo:this.data.audio.songInfo,
