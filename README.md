@@ -4,6 +4,7 @@
 
 # 功能
 暂时实现的功能不多，主要有以下部分
+## 登陆页面
 ## 播放器
 
 ### 前台播放功能
@@ -51,3 +52,9 @@
 评论
 
 # 项目截图
+### 主页
+![主页](/littleProgram/screenshot/index.png)
+### 播放器&私人FM
+![播放器&私人FM](/littleProgram/screenshot/fm.png)
+### 歌词&滚动
+![播放器&私人FM](/littleProgram/screenshot/lrc.png)
