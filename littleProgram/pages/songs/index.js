@@ -101,7 +101,6 @@ Page({
         
       }
     }
-    
     this.data.audio.innerAudioContext.seek(e.detail.value)
   },
   //播放与暂停
@@ -139,7 +138,13 @@ Page({
    
     switch (this.data.audio.playType) {
       case 'next':
-     
+        //当前播放的是fm时，播放完歌单即往下播放
+        if(app.globalData.isFm){
+          if(app.globalData.currentPlayList.currentPlay.index+1 >= app.globalData.currentPlayList.listArr.length){
+            this.getFm();
+            
+          }
+        }
         nextIndex = (app.globalData.currentPlayList.currentPlay.index+1)%app.globalData.currentPlayList.listArr.length;
         break;
       case 'random':
@@ -256,7 +261,7 @@ Page({
           })
           //播放中事件
           innerAudioContext.onTimeUpdate(()=>{
-            let lrc = _this.data.audio.lrc,index = lrc.index,viewIndex
+            let lrc = _this.data.audio.lrc
             if(!_this.data.audio.progressMenu.isDrag && !_this.data.audio.isPause){
               _this.setData({
                 ['audio.startTime']:trans(innerAudioContext.currentTime),
@@ -288,7 +293,7 @@ Page({
   reloadMusic:function(option,backPlay){
     let _this = this
     
-    if(backPlay.id === option.id){//第二次进入当前播放歌曲
+    if(parseInt(backPlay.id) === parseInt(option.id)){//第二次进入当前播放歌曲
       //设置初始值
       this.setData({
         ['audio.innerAudioContext']:backPlay.context,
@@ -383,7 +388,7 @@ Page({
     else{
       //逐帧跳转
      
-      if(lrc.timeArr[lrc.index] && lrc.timeArr[lrc.index] <= innerAudioContext.currentTime){
+      if(lrc.timeArr[lrc.index] && lrc.timeArr[lrc.index+1] < innerAudioContext.currentTime){
         
         viewIndex = index++
         if(viewIndex <= 5){
@@ -423,6 +428,31 @@ Page({
       complete: ()=>{}
     });
   },
+  //获取fm
+  getFm:function(){
+    let _this = this
+    app.get('/personal_fm')
+      .then((res)=>{
+
+        let playListId = [],listArr = [],list = app.globalData.currentPlayList,nextIndex,currentPlay,option
+        if(res.data){
+          for(let i = 0 ; i < res.data.length ; i++) {
+            res.data[i].index = i;
+            listArr.push(res.data[i])
+            playListId.push(res.data[i].id)
+          }
+          app.globalData.currentPlayList = {
+            listArr:listArr,
+            currentPlay:listArr[0],
+            //记录后台播放状态
+            backPlayInfo:{},
+            listId:playListId
+          }
+
+        }
+        
+      })
+  },
   onLoad:function(option){
     let _this = this,backPlay =  app.globalData.currentPlayList.backPlayInfo
     /*
@@ -433,6 +463,7 @@ Page({
     * 
     */
     this.setComment(option.commentAccount)
+  
     wx.getNetworkType({
       success: (result)=>{
         _this.setData({

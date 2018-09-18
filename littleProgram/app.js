@@ -24,7 +24,8 @@ App({
       currentPlay:{},
       //记录后台播放状态
       backPlayInfo:{},
-      listId:[]
+      listId:[],
+      isFm:false
     }
   },
   //封装wx.request
@@ -50,9 +51,14 @@ App({
     return promise;
   },
   get:function(url,data){
+    let cookie = wx.getStorageSync('cookie')
+    
     let promise = new Promise(function(resolve,reject){
       let _this = this;
-      
+      if(data){
+        data.csrf_token = ""
+      }
+    
       wx.request({
         url:baseUrl+url,  
         'method':'get',
@@ -64,6 +70,14 @@ App({
             reject(res.errMsg)
           }
         },
+        header:{
+          xhrFields: JSON.stringify({
+            withCredentials: true
+          }),
+          cookie:cookie||'',
+          
+        },
+        
         data:data
       });
     });

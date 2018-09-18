@@ -19,7 +19,7 @@
         </view>
         <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
       </view>
-      <image class="" src="../../assets/image/recording.png" mode="aspectFit" lazy-load="false" binderror="" bindload=""></image>
+      <image class="" src="../../assets/image/ph.png" mode="aspectFit" lazy-load="false" binderror="" bind:tap="navgateInto"></image>
   </view>
   
   <view class="search" hover-class="none" hover-stop-propagation="false" wx:if="{{ panelShow }}">
@@ -106,6 +106,25 @@
         </swiper-item>
       </block>
     </swiper>
+    <iconGroup iconList="{{iconList}}" bind:taps="taps"></iconGroup>
+    <view class="recommend">
+      <text class="title" selectable="false" space="false" decode="false">
+        推荐歌单
+      </text>
+      <view class="recommend-ctn" hover-class="none" hover-stop-propagation="false">
+        <view class="recommend-item" wx:for="{{recommend}}" data-id="{{item.id}}">
+          <image class="" src="{{item.picUrl}}" mode="aspectFit" lazy-load="true" binderror="" bindload="">
+            
+          </image>
+          <text class="count" selectable="false" space="false" decode="false">
+            {{item.playcount/100000000>1?(item.playcount/100000000)+'亿':item.playcount/10000>1?(item.playcount/10000)+'万':item.playcount}}
+          </text>
+          <text class="description" selectable="false" space="false" decode="false">
+            {{item.name}}
+          </text>
+        </view>
+      </view>
+    </view>
   </view>
 </view>
   

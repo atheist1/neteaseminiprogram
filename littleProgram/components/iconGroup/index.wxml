@@ -1,0 +1,14 @@
+<view class="icon-ctn">
+
+  <view class="icon-item" wx:for="{{list}}">
+
+    <image class="" src="{{item.value}}" mode="aspectFit" lazy-load="false" binderror="" bindload="" bind:tap="clickMe" data-ev="{{item.ev}}">
+      
+    </image>
+    <text class="" selectable="false" space="false" decode="false">
+      {{item.name}}
+    </text>
+  </view>
+ 
+
+</view>

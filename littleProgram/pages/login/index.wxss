@@ -1,0 +1,29 @@
+/* pages/login/index.wxss */
+.login-action {
+  margin: 0 auto;
+  margin-top: 300rpx;
+  width: 80%;
+ 
+}
+.login-action button{
+  border:1px solid #d43c33!important;
+  border-radius: 10px!important;
+  color:#d43c33!important;
+  font-size: 14px;
+}
+.login-panel input{
+  border-bottom:1px solid rgba(0,0,0,.1)!important;
+  font-size: 14px;
+  margin: 20rpx auto;
+  width: 80%;
+}
+.login-panel button{
+  border:1px solid #d43c33!important;
+  border-radius: 10px!important;
+  color:#d43c33!important;
+  font-size: 14px;
+  width: 80%;
+}
+.login-panel .cant{
+  color:rgba(0,0,0,.1)!important
+}

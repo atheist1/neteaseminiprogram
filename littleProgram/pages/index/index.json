@@ -1,1 +1,5 @@
-{}
+{
+  "usingComponents":{
+    "iconGroup":"../../components/iconGroup/index"
+  }
+}

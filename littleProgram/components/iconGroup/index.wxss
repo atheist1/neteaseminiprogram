@@ -1,0 +1,25 @@
+.icon-ctn {
+  display:flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 20rpx 0;
+}
+.icon-item {
+  position: relative;
+  background: #d43c33;
+  flex:0 0 auto;
+  border:1px solid #d43c33;
+  border-radius:48rpx;
+  height:96rpx;
+  width:96rpx;
+  text-align: center;
+}
+.icon-item image {
+  width:90rpx;
+  height:82rpx;
+}
+.icon-item text{
+  font-size: 13px;
+  white-space: nowrap;
+}

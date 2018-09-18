@@ -95,9 +95,20 @@ const transConcat = (res) => {
   }
 
 }
+//格式化cookie
+const normalizeUserCookie = (cookies = '') => {
+  let __cookies = [];
+  (cookies.match(/([\w\-.]*)=([^\s=]+);/g) || []).forEach((str) => {
+    if (str !== 'Path=/;' && str.indexOf('csrfToken=') !== 0) {
+      __cookies.push(str);
+    }
+  });
+ return  __cookies.join(' ');
+};
 module.exports = {
   trans,
   random,
   transTime,
-  transConcat
+  transConcat,
+  normalizeUserCookie
 }

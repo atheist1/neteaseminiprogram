@@ -188,3 +188,43 @@ input{
   width: 750rpx;
   height: 300rpx;
 }
+.main .recommend {
+ 
+}
+.main .recommend .title{
+  position: relative;
+  padding-left: 9px;
+  margin-bottom: 14px;
+  font-size: 17px;
+  height: 20px;
+  line-height: 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, .1);
+  width: 100%;
+}
+.recommend-ctn{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 0 14rpx 0 40rpx;
+  flex-wrap: wrap;
+}
+ .recommend-item{
+  flex: 0 0 auto;
+  width: 33.3%;
+  position: relative;
+  height: 337rpx;
+}
+.recommend-item image{
+ width: 200rpx;
+ height: 200rpx;
+}
+.recommend-item .count {
+  position: absolute;
+  font-size: 12px;
+  color:#fff;
+  left:17rpx;
+  top:-41rpx;
+}
+.recommend-item .description{
+  font-size: 12px;
+}

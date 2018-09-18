@@ -1,5 +1,6 @@
 //index.js
 import regeneratorRuntime from '../../utils/runtime-module.js'
+import {getRecommend} from './api.js'
 //获取应用实例
 const app = getApp()
 Page({
@@ -8,7 +9,7 @@ Page({
     inputValue:'',
     searchFocus:true,
     panelShow:false,
-    searchPanelShow:false,
+    searchPanelShow:true,
     multimatch:[],
     searchData:[],
     currentSearch:{
@@ -17,7 +18,22 @@ Page({
     }, 
     searchCount:0,
     searchHistory:[],
-    banner:[]
+    banner:[],
+    iconList:[{
+      value:"../../assets/image/cm2_btm_icn_radio_prs.png",
+      name:'私人FM',
+      ev:'getFm'
+    },{
+      value:"../../assets/image/calendar.png",
+      name:"每日推荐"
+    },{
+      value:"../../assets/image/cm2_btm_icn_discovery_prs.png",
+      name:"歌单"
+    },{
+      value:"../../assets/image/rank.png",
+      name:"排行榜"
+    }],
+    recommend:[]
   }, 
   getHot:function(){
     var _this = this;
@@ -119,6 +135,17 @@ Page({
         }
       })
   },
+  getRecommend:function(){
+    let _this = this
+    app.get('/recommend/resource')
+      .then((res)=>{
+        if(res.recommend && res.recommend.length){
+          _this.setData({
+            recommend:res.recommend 
+          })
+        }
+      })
+  },
   deleteHistory:function(r){
     let _this = this;
  
@@ -130,25 +157,80 @@ Page({
       'searchHistory', _this.data.searchHistory
     );
   },
+  getComment:function(r){
+    //加载评论并跳转
+    async function getCommentAccount(){
+      let res = await app.get('/comment/music?id='+app.globalData.currentPlayList.currentPlay.id+'&limit=1'),id,aid;
+      if(r){
+        id = r.currentTarget.dataset.id 
+        aid = r.currentTarget.dataset.aid 
+      }else{
+        if(app.globalData.currentPlayList.currentPlay){
+          id =  app.globalData.currentPlayList.currentPlay.id
+          aid =  app.globalData.currentPlayList.currentPlay.album.id
+        }else{
+          
+        }
+        
+      }
+      if(res.code===200){
+        wx.navigateTo({
+          url:'../songs/index?id='+id+'&album='+aid+'&commentAccount='+res.total,
+        });
+      }     
+    }
+    getCommentAccount()
+  },
+  //为自定义组件绑定事件
+  taps:function(r){
+    if(r.detail && r.detail.targetEv){
+      if(r.detail.targetEv === 'getFm'){
+        this.getFm()
+        app.globalData.isFm = true;
+      }
+    }
+  },
+  getFm:function(){
+    let _this = this
+    app.get('/personal_fm')
+      .then((res)=>{
+        console.log(res,app.globalData)
+        let currentPlay = {},playListId = [],listArr = []
+        if(res.data){
+          for(let i = 0 ; i < res.data.length ; i++) {
+            res.data[i].index = i;
+            listArr.push(res.data[i])
+            playListId.push(res.data[i].id)
+          }
+          //清空当前播放列表
+          if(app.globalData.currentPlayList.backPlayInfo){
+            if(app.globalData.currentPlayList.backPlayInfo.context){
+              app.globalData.currentPlayList.backPlayInfo.context.destroy()
+            }
+          }
+          
+          app.globalData.currentPlayList = {
+            listArr:listArr,
+            currentPlay:listArr[0],
+            //记录后台播放状态
+            backPlayInfo:{},
+            listId:playListId
+          }
+          _this.getComment()
+        }
+        
+      })
+  },
   seeSongs:function(r){
     app.globalData.currentPlayList.currentPlay = r.currentTarget.dataset.currentsong
     app.globalData.currentPlayList.currentPlay.index = app.globalData.currentPlayList.listArr.length 
+    app.globalData.isFm = false
     if(!~app.globalData.currentPlayList.listId.indexOf(r.currentTarget.dataset.id)){
      
       app.globalData.currentPlayList.listId.push(app.globalData.currentPlayList.currentPlay.id)
       app.globalData.currentPlayList.listArr.push(app.globalData.currentPlayList.currentPlay)
     }
-    //加载评论
-    async function getCommentAccount(){
-      let res = await app.get('/comment/music?id='+app.globalData.currentPlayList.currentPlay.id+'&limit=1')
-      console.log(res)
-      if(res.code===200){
-        wx.navigateTo({
-          url:'../songs/index?id='+r.currentTarget.dataset.id+'&album='+r.currentTarget.dataset.aid+'&commentAccount='+res.total,
-        });
-      }     
-    }
-    getCommentAccount()
+    this.getComment(r)
     
     
   },
@@ -203,15 +285,19 @@ Page({
     
     
   },
-  
+  //跳转到当前后台播放音频
+  navgateInto:function(){
+    this.getComment()
+  },
   onLoad:function(){
     this.getBanner()
+    this.getRecommend()
     if(wx.getStorageSync('searchHistory')&&wx.getStorageSync('searchHistory').length){
       this.setData({
         searchHistory:wx.getStorageSync('searchHistory')
       }) 
     }else{
-      wx.clearStorageSync('searchHistory')
+    
       wx.setStorage({
         key: 'searchHistory',
         data: []

@@ -1,0 +1,18 @@
+<view class="" hover-class="none" hover-stop-propagation="false">
+  <view class="login-action" hover-class="none" hover-stop-propagation="false">
+    <button class="weui-btn tel-in" type="default" plain="true">手机号登陆</button>
+     <button class="weui-btn register" type="default" plain="true">注册</button>
+  </view>
+  <view class="login-panel" hover-class="none" hover-stop-propagation="false">
+    <view class="weui-cell__bd weui-cell__bd_in-select-before">
+        <input class="weui-input" placeholder="请输入号码" value="{{tel}}" bindinput="inputsTel" bind:blur="checkCanLogin" type="number"/>
+    </view>
+    <view class="weui-cell__bd weui-cell__bd_in-select-before">
+        <input class="weui-input" placeholder="请输入密码"  type="password" bindinput="inputsPas" value="{{password}}" bind:blur="checkCanLogin"/>
+    </view>
+     <view class="weui-cell__bd weui-cell__bd_in-select-before">
+        <button class="weui-btn tel-in {{isChecked?'can':'cant'}}" type="default" plain="true" bind:tap="login">登陆</button>
+    </view>
+  </view>
+</view>
+

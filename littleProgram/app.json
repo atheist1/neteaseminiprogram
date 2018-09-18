@@ -2,7 +2,8 @@
   "pages":[
     "pages/index/index",
     "pages/songs/index",
-    "pages/comment/index"
+    "pages/comment/index",
+    "pages/login/index"
   ],
   "window":{
     "backgroundTextStyle":"light",
@@ -12,20 +13,29 @@
   },
   "tabBar": {
     "backgroundColor":"rgba(255,255,255,.1)",
-    "selectedColod":"#d3d4da",
+    "selectedColor":"#d43c33",
     "list":[
       {
         "pagePath":"pages/index/index",
-        "text":"发现"
+        "text":"发现",
+        "iconPath":"./assets/image/cm2_btm_icn_discovery.png",
+        "selectedIconPath":"./assets/image/cm2_lay_icn_quality_new@2x.png"
       },
       {
         "pagePath": "pages/index/index",
-        "text": "设置"
+        "text": "视频",
+        "iconPath":"./assets/image/l0.png",
+        "selectedIconPath":"./assets/image/l1.png"
         
       },{
         "pagePath": "pages/index/index",
         "text": "帮助"
 
+      },{
+        "pagePath": "pages/login/index",
+        "text": "账户",
+        "iconPath":"./assets/image/cm2_btm_icn_account.png",
+        "selectedIconPath":"./assets/image/cm2_lay_icn_artist_new@2x.png"
       }
     ]
   }
