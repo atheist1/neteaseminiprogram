@@ -1,5 +1,6 @@
 import regeneratorRuntime from '../../utils/runtime-module.js'
 import {trans,random,transConcat } from '../../utils/util.js'
+import {deleteMusicFm} from './api.js'
 const app = getApp();
 Page({
   data:{
@@ -32,7 +33,8 @@ Page({
     netWork:{},
     rotate:0,
     total:0,
-    commentAccount:0
+    commentAccount:0,
+    isFm:false
   },
   //旋转
   rotate:function(stop){
@@ -167,7 +169,6 @@ Page({
     
     if(app.globalData.currentPlayList.listArr.length > 1){
       //后面一个数组需要把index改变
-     
       app.globalData.currentPlayList.listArr.splice(index,1)
       app.globalData.currentPlayList.listId.splice(index,1)
       app.globalData.currentPlayList.listArr.forEach((item,index) =>{
@@ -175,7 +176,8 @@ Page({
       })
       app.globalData.currentPlayList.backPlayInfo = {}
     }
-   
+    //如果是私人FM发送请求，删除当前歌曲
+    deleteMusicFm(app.globalData.currentPlayList.currentPlay.id)
     this.next()
   },
   prev:function(){
@@ -463,12 +465,16 @@ Page({
     * 
     */
     this.setComment(option.commentAccount)
-  
+    console.log(app.globalData.currentPlayList)
+    this.setData({
+      isFm:app.globalData.isFm
+    })
     wx.getNetworkType({
       success: (result)=>{
         _this.setData({
           netWork:result,
-          id:option.id
+          id:option.id,
+          
         }) 
       },
     });

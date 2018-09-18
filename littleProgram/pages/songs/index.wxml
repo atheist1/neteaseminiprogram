@@ -43,7 +43,7 @@
       
       <view class="center-ctn">
         <image class="" src="../../assets/image/garbage.png" mode="aspectFit" lazy-load="false" bind:tap="deleteMusic"></image>
-        <image class="" src="../../assets/image/previous.png" mode="aspectFit" lazy-load="false" bind:tap="prev" wx:if="{{app.globalData.isFm}}"></image>
+        <image class="" src="../../assets/image/previous.png" mode="aspectFit" lazy-load="false" bind:tap="prev" wx:if="{{!isFm}}"></image>
         <image class="" src="{{audio.pauseOrPlayImg}}" mode="aspectFit" lazy-load="false"   bind:tap="pauseOrPlay" data-btn="btn">  </image>
         <image class="" src="../../assets/image/next.png" mode="aspectFit" lazy-load="false" bind:tap="next"></image>
         <view bind:tap="seeComments">

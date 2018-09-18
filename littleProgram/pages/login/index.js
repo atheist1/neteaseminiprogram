@@ -9,7 +9,13 @@ Page({
   data: {
     tel:'',
     password:'',
-    isChecked:false
+    isChecked:false,
+    showPanel:false
+  },
+  showPanels:function(){
+    this.setData({
+      showPanel:true
+    })
   },
   login:function(){
     let json = {
@@ -24,6 +30,17 @@ Page({
       success:function(res){
         if( res.header["Set-Cookie"]){
           wx.setStorageSync('cookie',  normalizeUserCookie(res.header["Set-Cookie"]));
+        }
+
+        if(res.data.code === 200){
+          wx.showToast({
+            title: '登录成功',
+            icon: 'success',
+            duration: 2000
+          })
+          wx.switchTab({
+            url: '../index/index'
+          });
         }
       },
       header:{

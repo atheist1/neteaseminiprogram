@@ -9,7 +9,7 @@ Page({
     inputValue:'',
     searchFocus:true,
     panelShow:false,
-    searchPanelShow:true,
+    searchPanelShow:false,
     multimatch:[],
     searchData:[],
     currentSearch:{
@@ -186,7 +186,9 @@ Page({
     if(r.detail && r.detail.targetEv){
       if(r.detail.targetEv === 'getFm'){
         this.getFm()
+      
         app.globalData.isFm = true;
+       
       }
     }
   },
@@ -194,8 +196,8 @@ Page({
     let _this = this
     app.get('/personal_fm')
       .then((res)=>{
-        console.log(res,app.globalData)
-        let currentPlay = {},playListId = [],listArr = []
+
+        let playListId = [],listArr = []
         if(res.data){
           for(let i = 0 ; i < res.data.length ; i++) {
             res.data[i].index = i;
@@ -224,7 +226,13 @@ Page({
   seeSongs:function(r){
     app.globalData.currentPlayList.currentPlay = r.currentTarget.dataset.currentsong
     app.globalData.currentPlayList.currentPlay.index = app.globalData.currentPlayList.listArr.length 
-    app.globalData.isFm = false
+    
+    //如果前面不是私人fm，则清空歌单
+    if(app.globalData.isFm ){
+      app.globalData.isFm =false
+      app.globalData.currentPlayList.listId = []
+      app.globalData.currentPlayList.listArr = []
+    }
     if(!~app.globalData.currentPlayList.listId.indexOf(r.currentTarget.dataset.id)){
      
       app.globalData.currentPlayList.listId.push(app.globalData.currentPlayList.currentPlay.id)
@@ -247,7 +255,8 @@ Page({
     this.setData({
         inputValue: "",
         inputShowed: false,
-        panelShow:false
+        panelShow:false,
+        searchPanelShow:true
     });
    
   },
