@@ -1,0 +1,15 @@
+var  transTime = function(time){
+  const hourTime = 1000*60*60
+  
+  let str = '',minutes = ''
+  let time = getDate()
+  debugger
+  console.log(time)
+  if(time - dayTime < 0){//一小时之内
+    console.log((time - dayTime)/60*1000*60)
+  }
+  return 
+}
+module.exports = {
+  transTime:transTime
+}

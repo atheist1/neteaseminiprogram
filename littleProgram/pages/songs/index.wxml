@@ -22,7 +22,7 @@
             <image class="turn clearfix" src="../../assets/image/disc.png" mode="aspectFit">
             </image>
             <view class="turnImg clearfix" >
-              <image src="{{songImage}}" animation="{{ animation }}" style="transform: rotateZ({{rotate}}deg)"/>
+              <image src="{{songImage}}" animation="{{ animation }}" style="transform: rotateZ({{rotate}}deg)" />
               <view class="play-btn"  wx:if="{{audio.isPause}}" data-btn="btn"></view>
             </view> 
           
@@ -42,6 +42,7 @@
     <view class="controller" >
       
       <view class="center-ctn">
+        <image class="" src="../../assets/image/{{isLike?'like':'dislike'}}.png" mode="aspectFit" lazy-load="false" bind:tap="likeOrDislike"></image>
         <image class="" src="../../assets/image/garbage.png" mode="aspectFit" lazy-load="false" bind:tap="deleteMusic"></image>
         <image class="" src="../../assets/image/previous.png" mode="aspectFit" lazy-load="false" bind:tap="prev" wx:if="{{!isFm}}"></image>
         <image class="" src="{{audio.pauseOrPlayImg}}" mode="aspectFit" lazy-load="false"   bind:tap="pauseOrPlay" data-btn="btn">  </image>

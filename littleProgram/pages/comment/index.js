@@ -1,17 +1,44 @@
+import regeneratorRuntime from '../../utils/runtime-module.js'
+const app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    
+    songImage:'',
+    id:'',
+    artists:'',
+    songName:'',
+    comment:[]
   },
+  getComment:function(){
+    let _this = this
+    async function getCommentAccount(){
+      let res = await app.get('/comment/music?id='+app.globalData.currentPlayList.currentPlay.id+'&limit=20')
+      
+      _this.setData({
+        comment:res.comments
+      })
+    }
 
+    getCommentAccount()
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    console.log(1)
+    wx.setNavigationBarTitle({
+      title: '评论('+options.total+')',
+    });
+    this.getComment()
+    this.setData({
+      songImage:wx.getStorageSync('currentImage'),
+      artists:options.songArtists,
+      id:options.id,
+      songName:options.songName
+    })
   },
 
   /**

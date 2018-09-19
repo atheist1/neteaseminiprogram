@@ -1,0 +1,56 @@
+<wxs src="./util.wxs" module="utils"></wxs>
+
+<view class="container">
+  <view class="top" >
+    <view class="top-left">
+       <image src="{{songImage}}" mode="aspectFit"/>
+    </view>
+    <view class="top-right" hover-class="none" hover-stop-propagation="false">
+      <view class="songName" hover-class="none" hover-stop-propagation="false">
+        {{songName}}
+      </view>
+      <view class="artists" hover-class="none" hover-stop-propagation="false">
+        {{artists}}
+      </view>
+    </view>
+  </view>
+  <view class="main">
+    <!-- 热门评论 -->
+    <view class="hotComment" >
+      <view class="titile">
+        精彩评论
+      </view>
+    </view>
+    <view class="newComment" >
+      <view class="title">
+        最新评价
+      </view>
+      <view class="comment-ctn">
+        <view class="comment-item" wx:for="{{comment}}">
+          <view class="user">
+            <view class="avatar" hover-class="none" hover-stop-propagation="false">
+              <image class="" src="{{item.user.avatarUrl}}" mode="aspectFit" lazy-load="true"></image>
+            </view>
+            <view class="userInfo" hover-class="none" hover-stop-propagation="false">
+              <view class="userName" hover-class="none" hover-stop-propagation="false" data-userId="{{item.user.userId}}">
+                {{item.user.nickname}}
+              </view>
+              <view class="time">
+                {{item.time}}
+              </view>
+            </view>
+            <view class="like" >
+              <image class="" src="../../assets/image/cm2_play_icn_praise@2x.png" mode="aspectFit">
+                
+              </image>
+            </view>
+          </view>
+          <view class="content" hover-class="none" hover-stop-propagation="false">
+            {{item.content}}
+          </view>
+          
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

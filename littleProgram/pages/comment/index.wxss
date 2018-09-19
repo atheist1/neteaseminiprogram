@@ -1,0 +1,63 @@
+.top {
+  padding:20rpx 10rpx;
+}
+.top-left{
+  display:inline-block;
+  margin-right: 20rpx;
+}
+.top-left image {
+  width:200rpx;
+  height:200rpx;
+  border:1px solid rgba(0,0,0,.1);
+}
+.top-right {
+  display: inline-block;
+  vertical-align:top;
+}
+.top-right .songName{
+  font-size: 14px;
+}
+.top-right .artists{
+  font-size: 13px;
+  color:#2797e2;
+}
+.title{
+  font-size: 12px;
+  height: 60rpx;
+  line-height: 60rpx;
+  background-color: rgba(0,0,0,.1);
+}
+.comment-ctn .comment-item {
+  font-size: 14px;
+  margin: 20rpx 10rpx 20rpx 10rpx;
+  border-bottom: 1px solid rgba(0,0,0,.1);
+}
+.comment-ctn .comment-item .avatar {
+  display: inline-block;
+  border-radius: 50rpx;
+  margin-right:20rpx;
+
+}
+.comment-ctn .comment-item .userInfo {
+  display: inline-block;
+  vertical-align: top;
+}
+.comment-ctn .comment-item .like {
+  position: absolute;
+  width: 40rpx;
+  height: 40rpx;
+}
+.comment-ctn .comment-item .like image {
+  width: 40rpx;
+  height: 40rpx;
+  
+}
+.comment-ctn .comment-item .avatar image{
+  width: 80rpx;
+  height:80rpx;
+  border-radius: 50%;
+}
+.comment-ctn .comment-item .content {
+  margin-left: 100rpx;
+  
+}

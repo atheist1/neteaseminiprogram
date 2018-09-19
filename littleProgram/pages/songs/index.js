@@ -34,7 +34,9 @@ Page({
     rotate:0,
     total:0,
     commentAccount:0,
-    isFm:false
+    isFm:false,
+    showLrc:false,
+    isLike:false
   },
   //旋转
   rotate:function(stop){
@@ -85,8 +87,7 @@ Page({
     this.setData({
       ['audio.progressMenu.isDrag']:false,
     }) 
-    //直接跳转到当前位置
-
+    //直接跳转到当前位
     for(let i = 1 ; i < this.data.audio.lrc.timeArr.length; i++){
       if(e.detail.value ===0){
         this.setData({
@@ -94,15 +95,12 @@ Page({
           ['audio.lrc.viewId']:'lrc_'+0,
         })
         break;
-      }
-      if((this.data.audio.lrc.timeArr[i-1] < e.detail.value && this.data.audio.lrc.timeArr[i] >= e.detail.value )||!this.data.audio.lrc.timeArr[i-1]){
+      }else if((this.data.audio.lrc.timeArr[i-1] < e.detail.value && this.data.audio.lrc.timeArr[i] >= e.detail.value )||!this.data.audio.lrc.timeArr[i-1]){
         this.seekLrc(i)
-        
         break;
-      }else{
-        
       }
     }
+   
     this.data.audio.innerAudioContext.seek(e.detail.value)
   },
   //播放与暂停
@@ -132,6 +130,42 @@ Page({
       }
     }  
   },
+  //删除当前歌曲
+  deleteMusic:function(){
+  
+    const index = app.globalData.currentPlayList.currentPlay.index
+    
+    if(app.globalData.currentPlayList.listArr.length > 1){
+      //后面一个数组需要把index改变
+      app.globalData.currentPlayList.listArr.splice(index,1)
+      app.globalData.currentPlayList.listId.splice(index,1)
+      app.globalData.currentPlayList.listArr.forEach((item,index) =>{
+        item.index = index;
+      })
+      app.globalData.currentPlayList.backPlayInfo = {}
+    }
+    //如果是私人FM发送请求，删除当前歌曲
+    deleteMusicFm(app.globalData.currentPlayList.currentPlay.id)
+    this.next()
+  },
+  //点赞
+  likeOrDislike:function(){
+    if(!this.data.isLike){
+      app.get('/like',{id:this.data.id})
+        .then((res)=>{
+         
+          console.log(res)
+        })
+    }else{
+      app.get('/like',{like:false,id:this.data.id})
+      .then((res)=>{
+        console.log(res)
+      })
+    }
+    this.setData({
+      isLike:!this.data.isLike
+    })
+  },
   //下一首
   next:function(){
     
@@ -160,25 +194,8 @@ Page({
       id:currentPlay.id,
       album:currentPlay.album.id
     }
+   
     this.getMusic(option)
-  },
-  //删除当前歌曲
-  deleteMusic:function(){
-  
-    const index = app.globalData.currentPlayList.currentPlay.index
-    
-    if(app.globalData.currentPlayList.listArr.length > 1){
-      //后面一个数组需要把index改变
-      app.globalData.currentPlayList.listArr.splice(index,1)
-      app.globalData.currentPlayList.listId.splice(index,1)
-      app.globalData.currentPlayList.listArr.forEach((item,index) =>{
-        item.index = index;
-      })
-      app.globalData.currentPlayList.backPlayInfo = {}
-    }
-    //如果是私人FM发送请求，删除当前歌曲
-    deleteMusicFm(app.globalData.currentPlayList.currentPlay.id)
-    this.next()
   },
   prev:function(){
     
@@ -207,7 +224,7 @@ Page({
     });
     //加载音乐详情
     async function getMusicDetail() {
-      let isCheck,music,innerAudioContext ;
+      let isCheck,music,innerAudioContext=null ;
       const timeDelay = {
         'wifi':20,
         '4g':40,
@@ -235,7 +252,9 @@ Page({
             _this.setData({
               ['audio.isPause']:false,
               ['audio.pauseOrPlayImg']:'../../assets/image/stop.png',
-              rotate:0
+              ['audio.innerAudioContext']:innerAudioContext,
+              rotate:0,
+
             })
             _this.rotate(true)
             _this.rotate()
@@ -258,12 +277,15 @@ Page({
                 ['audio.songInfo']:app.globalData.currentPlayList.currentPlay,
                 ['audio.url']:music.data[0].url
               })
+             
               wx.hideLoading()
+              //更新后台播放数据
+              _this.updateBackInfo()
             }, timeDelay[_this.data.netWork.networkType])  //这里根据网络状态获取
           })
           //播放中事件
           innerAudioContext.onTimeUpdate(()=>{
-            let lrc = _this.data.audio.lrc
+        
             if(!_this.data.audio.progressMenu.isDrag && !_this.data.audio.isPause){
               _this.setData({
                 ['audio.startTime']:trans(innerAudioContext.currentTime),
@@ -281,6 +303,7 @@ Page({
               showLrc:false
             })
             _this.next()
+           
           })
         }else{
           console.log('##购买占位##')
@@ -290,7 +313,10 @@ Page({
       }
     }
     getMusicDetail()
+    //加载评论
+    this.refreshComment()
     this.showLrcs(option.id)
+    
   },
   reloadMusic:function(option,backPlay){
     let _this = this
@@ -340,7 +366,7 @@ Page({
       }
     }
   },
-  showLrc:false,
+
   //展示歌词并转换
   showLrcs:function(id){
     let _this = this,timeArr = [],lrcArr = []
@@ -354,7 +380,6 @@ Page({
               timeArr = transConcat(res).timeArr
               lrcArr = transConcat(res).lrcArr
             }
-          
           _this.setData({
             ['audio.lrc.timeArr']:timeArr,
             ['audio.lrc.lrcArr']:lrcArr,
@@ -408,21 +433,42 @@ Page({
     }
     
   },
+  //获取评论
+  refreshComment:function(){
+    let _this = this
+    async function getCommentAccount(){
+      let res = await app.get('/comment/music?id='+app.globalData.currentPlayList.currentPlay.id+'&limit=1'),id,aid;
+      if(res.code === 200){
+        _this.setComment(res.total)
+      }
+    }
+
+    getCommentAccount()
+  },
   //设置评论
   setComment:function(account){
+    let temp = account
     if(account>=999&&account<10000){
       account = '999+'
     }else if(account>=10000){
       account = '1w+'
     }
     this.setData({
-      commentAccount:account
+      commentAccount:account,
+      account:temp
     })
   },
   //跳转到评论
   seeComments:function(){
+    let _this = this,str='',item
+    for(let i = 0; i < _this.data.audio.songInfo.artists.length; i++){
+      item = _this.data.audio.songInfo.artists[i]
+      str+= item.name+(_this.data.audio.songInfo.artists.length!==i+1?'/':'')
+    }
+  
+    wx.setStorageSync('currentImage', _this.data.songImage);
     wx.navigateTo({
-      url: '../comment/index?id='+app.globalData.currentPlayList.currentPlay.id,
+      url: '../comment/index?id='+app.globalData.currentPlayList.currentPlay.id+'&songArtists='+str+'&songName='+_this.data.audio.songInfo.name+'&total='+_this.data.account,
       success: (result)=>{
         
       },
@@ -455,6 +501,22 @@ Page({
         
       })
   },
+  updateBackInfo:function(){
+    app.globalData.currentPlayList.backPlayInfo = {
+      url:this.data.audio.url,
+      context:this.data.audio.innerAudioContext,
+      isPause:this.data.audio.isPause,
+      rotate:this.data.audio.rotate,
+      progress:this.data.audio.progress,
+      BackgroundImg:this.data.BackgroundImg,
+      songImage:this.data.songImage,
+      id:this.data.audio.songInfo.id,
+      endTime:this.data.audio.endTime,
+      end:this.data.audio.end,
+      songInfo:this.data.audio.songInfo,
+      lrc:this.data.audio.lrc
+    }
+  },
   onLoad:function(option){
     let _this = this,backPlay =  app.globalData.currentPlayList.backPlayInfo
     /*
@@ -464,8 +526,9 @@ Page({
     *第三条进入的是当前播放音乐，第三条线将会使用app.global数据，减少渲染
     * 
     */
-    this.setComment(option.commentAccount)
-    console.log(app.globalData.currentPlayList)
+    this.refreshComment()
+    
+    
     this.setData({
       isFm:app.globalData.isFm
     })
@@ -499,20 +562,8 @@ Page({
    //手动删除interval防止内存调用过大
    clearInterval(this.interval)
    this.interval = null
-   app.globalData.currentPlayList.backPlayInfo = {
-     url:this.data.audio.url,
-     context:this.data.audio.innerAudioContext,
-     isPause:this.data.audio.isPause,
-     rotate:this.data.audio.rotate,
-     progress:this.data.audio.progress,
-     BackgroundImg:this.data.BackgroundImg,
-     songImage:this.data.songImage,
-     id:this.data.audio.songInfo.id,
-     endTime:this.data.audio.endTime,
-     end:this.data.audio.end,
-     songInfo:this.data.audio.songInfo,
-     lrc:this.data.audio.lrc
-   }
+   //更新后台播放数据
+   this.updateBackInfo()
   }
   
 })

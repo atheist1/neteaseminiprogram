@@ -159,8 +159,7 @@ Page({
   },
   getComment:function(r){
     //加载评论并跳转
-    async function getCommentAccount(){
-      let res = await app.get('/comment/music?id='+app.globalData.currentPlayList.currentPlay.id+'&limit=1'),id,aid;
+      let id,aid
       if(r){
         id = r.currentTarget.dataset.id 
         aid = r.currentTarget.dataset.aid 
@@ -173,13 +172,12 @@ Page({
         }
         
       }
-      if(res.code===200){
-        wx.navigateTo({
-          url:'../songs/index?id='+id+'&album='+aid+'&commentAccount='+res.total,
-        });
-      }     
-    }
-    getCommentAccount()
+      
+      wx.navigateTo({
+        url:'../songs/index?id='+id+'&album='+aid,
+      });
+       
+   
   },
   //为自定义组件绑定事件
   taps:function(r){
