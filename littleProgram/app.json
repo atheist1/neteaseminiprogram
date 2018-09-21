@@ -3,12 +3,13 @@
     "pages/index/index",
     "pages/songs/index",
     "pages/comment/index",
-    "pages/login/index"
+    "pages/login/index",
+    "pages/recommend/index"
   ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "neteaseMusic",
+    "navigationBarTitleText": "网易云音乐",
     "navigationBarTextStyle":"black"
   },
   "tabBar": {

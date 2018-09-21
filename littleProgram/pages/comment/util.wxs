@@ -1,15 +1,50 @@
-var  transTime = function(time){
-  const hourTime = 1000*60*60
-  
-  let str = '',minutes = ''
-  let time = getDate()
-  debugger
-  console.log(time)
-  if(time - dayTime < 0){//一小时之内
-    console.log((time - dayTime)/60*1000*60)
+var myDate = getDate();
+// 日期格式化
+function formatDate(nowDate){
+  nowDate = getDate(nowDate)
+  var year = nowDate.getFullYear() ,
+      month = (nowDate.getMonth() + 1 ),
+      date = nowDate.getDate() ,
+      week = ["星期一", "星期二", "星期三", "星期四", "星期五", "星期六","星期天"],
+      day = week[nowDate.getDay()],
+      hour = nowDate.getHours(),
+      minutes = nowDate.getMinutes(),
+      seconds = nowDate.getSeconds(),
+      toYear = myDate.getFullYear(),
+      toMonth = (myDate.getMonth() + 1 ),
+      todate = myDate.getDate() ,
+      today =  week[myDate.getDay()],
+      toHour = myDate.getHours(),
+      toMinutes = myDate.getMinutes(),
+      toSeconds = myDate.getSeconds(),
+      str = year + '年'+month + '月'+date+ '日' + '' + day + '\n',temp1,temp2
+
+  if(year === toYear){
+    str = month + '月'+date+ '日' + '' + day + '\n'
+    if(toMonth === month && todate === date){
+      if(hour < 10){
+        temp1 = '0' + hour
+      }else{
+        temp1 = hour
+      }
+      if(minutes < 10){
+        temp2 = '0' +minutes
+      }else{
+        temp2 = minutes
+      }
+      str = temp1+':'+temp2
+      if(hour===toHour){
+        str = toMinutes-minutes+'分钟前'
+        if( toMinutes===minutes){
+          str = toSeconds-seconds+'秒前'
+        }
+      }
+    }
   }
-  return 
+  return str
 }
+
+
 module.exports = {
-  transTime:transTime
+  formatDate:formatDate
 }

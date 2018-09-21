@@ -1,14 +1,17 @@
 .top {
   padding:20rpx 10rpx;
+  display: flex;
 }
 .top-left{
   display:inline-block;
   margin-right: 20rpx;
+  width: 200rpx;
 }
 .top-left image {
   width:200rpx;
   height:200rpx;
   border:1px solid rgba(0,0,0,.1);
+  flex: 1 0 auto;
 }
 .top-right {
   display: inline-block;
@@ -27,10 +30,23 @@
   line-height: 60rpx;
   background-color: rgba(0,0,0,.1);
 }
+.comment-ctn {
+  margin: 20rpx 0;
+}
 .comment-ctn .comment-item {
   font-size: 14px;
   margin: 20rpx 10rpx 20rpx 10rpx;
   border-bottom: 1px solid rgba(0,0,0,.1);
+}
+.comment-ctn .comment-item:last-child{
+  border: none;
+}
+.comment-ctn .comment-item .user {
+  position: relative;
+}
+.comment-ctn .comment-item .time {
+  font-size: 12px;
+  color:#9e9e9e;
 }
 .comment-ctn .comment-item .avatar {
   display: inline-block;
@@ -42,22 +58,64 @@
   display: inline-block;
   vertical-align: top;
 }
+.comment-ctn .comment-item .userName{
+  color:rgba(0,0,0,.8)
+}
 .comment-ctn .comment-item .like {
   position: absolute;
-  width: 40rpx;
+
   height: 40rpx;
+  right: 8rpx;
+  top: 0;
 }
 .comment-ctn .comment-item .like image {
   width: 40rpx;
   height: 40rpx;
   
 }
+.comment-ctn .comment-item .like .likeCount {
+  float:left;
+  vertical-align:middle;
+  line-height:16rpx;
+
+  color:#a8a8a8;
+  margin-right: 10rpx;
+}
 .comment-ctn .comment-item .avatar image{
   width: 80rpx;
   height:80rpx;
   border-radius: 50%;
+  vertical-align:middle;
+
 }
 .comment-ctn .comment-item .content {
   margin-left: 100rpx;
+  margin-bottom: 20rpx;
+}
+.comment-ctn .comment-item .replyContent{
+  padding: 6rpx;
+  color:rgba(0,0,0,.8);
+  border:1px solid #9e9e9e;
+  margin-bottom: 20rpx;
+  padding:10rpx 20rpx;
+}
+.comment-ctn .comment-item .replyContent .userName {
+  color:rgb(6, 130, 231);
   
+}
+.bottom {
+  position:fixed;
+  bottom:0;
+  width:100%;
+  background:#fff;
+  border:1px solid rgba(0,0,0,.1);
+  height: 100rpx;
+}
+.bottom .weui-cell_input {
+  width:80%;
+  margin:20rpx auto;
+  border:1px solid rgba(0,0,0,.1);
+  height:60rpx;
+  border-radius:60rpx;
+  font-size: 14px;
 }

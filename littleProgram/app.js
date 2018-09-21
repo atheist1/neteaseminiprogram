@@ -3,30 +3,7 @@ var baseUrl = 'http://localhost:3000';
 
 App({
   onLaunch: function () {
-    // 展示本地存储能力
-    if(!wx.getStorageSync('cookie')){
-      wx.showModal({
-        title: '登录',
-        content: '您还没有登陆网易云账号，是否登陆',
-        confirmText: "去登陆",
-        cancelText: "随便看看",
-        success: function (res) {
-            
-            if (res.confirm) {
-               wx.switchTab({
-                 url: '../login/index',
-                 success: (result)=>{
-                   
-                 },
-                 fail: ()=>{},
-                 complete: ()=>{}
-               });
-            }else{
-                
-            }
-        }
-    });
-    }
+    
   },
   //全局变量
   globalData: {

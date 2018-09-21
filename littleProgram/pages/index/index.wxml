@@ -1,4 +1,5 @@
 <!--index.wxml-->
+<wxs src="util.wxs" module="util"></wxs>
 <view class="container">
   <view class="top weui-flex" hover-class="none" hover-stop-propagation="false">
       <image class="" src="../../assets/image/recording.png" mode="aspectFit" lazy-load="false" binderror="" bindload=""> </image>
@@ -117,7 +118,8 @@
             
           </image>
           <text class="count" selectable="false" space="false" decode="false">
-            {{item.playcount/100000000>1?(item.playcount/100000000)+'亿':item.playcount/10000>1?(item.playcount/10000)+'万':item.playcount}}
+          
+            {{util.transCount(item.playcount)}}
           </text>
           <text class="description" selectable="false" space="false" decode="false">
             {{item.name}}

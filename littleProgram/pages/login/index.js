@@ -39,8 +39,14 @@ Page({
             duration: 2000
           })
           wx.switchTab({
-            url: '../index/index'
+            url: '../index/index',
+            success(e){
+              //手动刷新一次获取数据
+              var page = getCurrentPages().pop()
+              page.onLoad()
+            }
           });
+          wx.setStorageSync('overtime',new Date().getTime())
         }
       },
       header:{

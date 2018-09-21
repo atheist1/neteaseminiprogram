@@ -7,10 +7,8 @@ const deleteMusicFm  = function (id) {
     })
   }
 }
-// async function a(){
-//   await app.get('/album',{id:12341})
-// }
+
 module.exports = {
   deleteMusicFm,
-  // a
+  
 }

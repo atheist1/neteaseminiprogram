@@ -1,4 +1,4 @@
-<wxs src="./util.wxs" module="utils"></wxs>
+<wxs src="util.wxs" module="utils"></wxs>
 
 <view class="container">
   <view class="top" >
@@ -16,12 +16,55 @@
   </view>
   <view class="main">
     <!-- 热门评论 -->
-    <view class="hotComment" >
-      <view class="titile">
+    <view class="hotComment" wx:if="{{hotComment.length}}">
+      <view class="title">
         精彩评论
       </view>
+      <view class="comment-ctn">
+        <view class="comment-item" wx:for="{{hotComment}}">
+          <view class="user">
+            <view class="avatar" hover-class="none" hover-stop-propagation="false">
+              <image class="" src="{{item.user.avatarUrl}}" mode="aspectFit" lazy-load="true"></image>
+            </view>
+            <view class="userInfo" hover-class="none" hover-stop-propagation="false">
+              <view class="userName" hover-class="none" hover-stop-propagation="false" data-userId="{{item.user.userId}}">
+                {{item.user.nickname}}
+              </view>
+              <view class="time">
+                {{utils.formatDate(item.time)}}
+              </view>
+            </view>
+            <view class="like" >
+              <text class="likeCount" selectable="false" space="false" decode="false">
+                {{item.likedCount}}
+              </text>
+              <image class="likeImage" src="{{item.liked?'../../assets/image/liked.png':'../../assets/image/cm2_play_icn_praise@2x.png'}}"
+                mode="aspectFit" data-isLike ="{{item.liked}}" bind:tap="likeOrDislike"  data-commentId="{{item.commentId}}" data-index="{{index}}"
+                data-isHot="{{true}}">
+                
+              </image>
+            </view>
+          </view>
+          <view class="content" hover-class="none" hover-stop-propagation="false">
+            <text >{{item.content}}</text>
+            <view class="replyContent" hover-class="none" hover-stop-propagation="false" wx:if="{{item.beReplied.length}}">
+              <view class="user">
+                <view class="userInfo" hover-class="none" hover-stop-propagation="false">
+                  <view class="userName" hover-class="none" hover-stop-propagation="false" data-userId="{{item.beReplied[0].user.userId}}">
+                    @{{item.beReplied[0].user.nickname}}
+                  </view>
+                  <view class="replyComment" hover-class="none" hover-stop-propagation="false" decode="{{true}}">
+                    <text decode="{{true}}" space="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;</text>{{item.beReplied[0].content}}
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+          
+        </view>
+      </view>
     </view>
-    <view class="newComment" >
+    <view class="newComment" wx:if="{{comment.length}}">
       <view class="title">
         最新评价
       </view>
@@ -36,20 +79,44 @@
                 {{item.user.nickname}}
               </view>
               <view class="time">
-                {{item.time}}
+                {{utils.formatDate(item.time)}}
               </view>
             </view>
             <view class="like" >
-              <image class="" src="../../assets/image/cm2_play_icn_praise@2x.png" mode="aspectFit">
+              <text class="likeCount" selectable="false" space="false" decode="false">
+                {{item.likedCount}}
+              </text>
+              <image class="likeImage" src="{{item.liked?'../../assets/image/liked.png':'../../assets/image/cm2_play_icn_praise@2x.png'}}" mode="aspectFit" data-isLike ="{{item.liked}}" bind:tap="likeOrDislike"  data-commentId="{{item.commentId}}" data-index="{{index}}">
                 
               </image>
             </view>
           </view>
           <view class="content" hover-class="none" hover-stop-propagation="false">
-            {{item.content}}
+            <text >{{item.content}}</text>
+            <view class="replyContent" hover-class="none" hover-stop-propagation="false" wx:if="{{item.beReplied.length}}">
+              <view class="user">
+                <view class="userInfo" hover-class="none" hover-stop-propagation="false">
+                  <view class="userName" hover-class="none" hover-stop-propagation="false" data-userId="{{item.beReplied[0].user.userId}}">
+                    @{{item.beReplied[0].user.nickname}}
+                  </view>
+                  <view class="replyComment" hover-class="none" hover-stop-propagation="false" decode="{{true}}">
+                    <text decode="{{true}}" space="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;</text>{{item.beReplied[0].content}}
+                  </view>
+                </view>
+              </view>
+            </view>
           </view>
           
         </view>
+      </view>
+    </view>
+    
+  </view>
+  <!-- 输入框 -->
+  <view class="bottom">
+    <view class="weui-cell weui-cell_input weui-cell_vcode">
+      <view class="weui-cell__bd">
+          <input class="weui-input" placeholder="评论越押韵点赞越多哦" type="text" confirm-type="发送" bind:confirm="doSendComment" bindinput="changeInput"/>
       </view>
     </view>
   </view>

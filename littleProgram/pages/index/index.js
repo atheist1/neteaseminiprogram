@@ -25,7 +25,8 @@ Page({
       ev:'getFm'
     },{
       value:"../../assets/image/calendar.png",
-      name:"每日推荐"
+      name:"每日推荐",
+      ev:'getRecommend'
     },{
       value:"../../assets/image/cm2_btm_icn_discovery_prs.png",
       name:"歌单"
@@ -126,25 +127,43 @@ Page({
   },
   getBanner :function(){
     let _this = this
-    app.get('/banner')
+    if(wx.getStorageSync('banner')){
+      _this.setData({
+        banner:wx.getStorageSync('banner')
+      })
+    }else{
+      app.get('/banner')
       .then((res)=>{
         if(res.code === 200){
           _this.setData({
             banner:res.banners
           })
+          //将banner缓存，减少请求
+          wx.setStorageSync('banner', res.banners);
         }
       })
+    }
+    
   },
   getRecommend:function(){
     let _this = this
-    app.get('/recommend/resource')
+    //缓存一次请求
+    if(wx.getStorageSync('recommend')){
+      _this.setData({
+        recommend:wx.getStorageSync('recommend')
+      })
+    }else{
+      app.get('/recommend/resource')
       .then((res)=>{
         if(res.recommend && res.recommend.length){
           _this.setData({
             recommend:res.recommend 
           })
+          wx.setStorageSync('recommend', res.recommend);
         }
       })
+    }
+    
   },
   deleteHistory:function(r){
     let _this = this;
@@ -187,6 +206,8 @@ Page({
       
         app.globalData.isFm = true;
        
+      }else if(r.detail.targetEv === 'getRecommend'){
+        this.getDailyRecommend()
       }
     }
   },
@@ -220,6 +241,12 @@ Page({
         }
         
       })
+  },
+  getDailyRecommend:function(){
+    wx.navigateTo({
+      url: '../recommend/index'
+     
+    })
   },
   seeSongs:function(r){
     app.globalData.currentPlayList.currentPlay = r.currentTarget.dataset.currentsong
@@ -297,8 +324,39 @@ Page({
     this.getComment()
   },
   onLoad:function(){
+    let nowdate = new Date().getTime()
+    const overTime = 1000*60*60*2
+    //首次加载判断cookie是否过期 2小时
+    if(nowdate - wx.getStorageSync('overtime') >= overTime){
+      wx.clearStorageSync()
+    }
+   // 展示本地存储能力
+   if(!wx.getStorageSync('cookie')){
+    wx.showModal({
+      title: '登录',
+      content: '您还没有登陆网易云账号，是否登陆',
+      confirmText: "去登陆",
+      cancelText: "随便看看",
+      success: function (res) {
+          
+          if (res.confirm) {
+             wx.switchTab({
+               url: '../login/index',
+               success: (result)=>{
+                 
+               },
+               fail: ()=>{},
+               complete: ()=>{}
+             });
+          }else{
+              
+          }
+      }
+  });
+  }
     this.getBanner()
     this.getRecommend()
+    
     if(wx.getStorageSync('searchHistory')&&wx.getStorageSync('searchHistory').length){
       this.setData({
         searchHistory:wx.getStorageSync('searchHistory')

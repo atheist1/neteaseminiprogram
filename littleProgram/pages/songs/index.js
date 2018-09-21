@@ -244,7 +244,7 @@ Page({
           innerAudioContext = wx.createInnerAudioContext()
           innerAudioContext.autoplay = true
           innerAudioContext.src = music.data[0].url
- 
+          _this.refreshComment(option.id)
           //在音频初始化后判断是从其他地方跳转还是直接点击
           if(_this.data.audio.innerAudioContext && _this.data.audio.innerAudioContext.destroy){
             //重置所有
@@ -314,7 +314,7 @@ Page({
     }
     getMusicDetail()
     //加载评论
-    this.refreshComment()
+  
     this.showLrcs(option.id)
     
   },
@@ -434,10 +434,11 @@ Page({
     
   },
   //获取评论
-  refreshComment:function(){
+  refreshComment:function(r){
     let _this = this
     async function getCommentAccount(){
-      let res = await app.get('/comment/music?id='+app.globalData.currentPlayList.currentPlay.id+'&limit=1'),id,aid;
+      
+      let res = await app.get('/comment/music?id='+(r||app.globalData.currentPlayList.currentPlay.id)+'&limit=1'),id,aid;
       if(res.code === 200){
         _this.setComment(res.total)
       }
@@ -450,8 +451,10 @@ Page({
     let temp = account
     if(account>=999&&account<10000){
       account = '999+'
-    }else if(account>=10000){
+    }else if(account>=10000 &&account<100000 ){
       account = '1w+'
+    }else if(account>=100000){
+      account = '10w+'
     }
     this.setData({
       commentAccount:account,
@@ -468,7 +471,7 @@ Page({
   
     wx.setStorageSync('currentImage', _this.data.songImage);
     wx.navigateTo({
-      url: '../comment/index?id='+app.globalData.currentPlayList.currentPlay.id+'&songArtists='+str+'&songName='+_this.data.audio.songInfo.name+'&total='+_this.data.account,
+      url: '../comment/index?id='+_this.data.audio.songInfo.id+'&songArtists='+str+'&songName='+_this.data.audio.songInfo.name+'&total='+_this.data.account,
       success: (result)=>{
         
       },
@@ -519,6 +522,7 @@ Page({
   },
   onLoad:function(option){
     let _this = this,backPlay =  app.globalData.currentPlayList.backPlayInfo
+ 
     /*
     *onLoad函数进入将会进入三条线
     *第一条是首次打开某个音乐，新进入小程序，小程序本地存储仅仅存储了搜索记录，重新进入将重新初始化歌单，后续可能改进
