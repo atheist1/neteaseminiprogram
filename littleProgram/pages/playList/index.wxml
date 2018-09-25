@@ -1,0 +1,47 @@
+<!--pages/playList/index.wxml-->
+<view class="container" hover-class="none" hover-stop-propagation="false">
+  <view class="top">
+    <view class="top-info" hover-class="none" hover-stop-propagation="false">
+      <view class="img">
+        <image class="" src="{{detail.coverImgUrl}}" mode="aspectFit" lazy-load="false" binderror="" bindload="">
+          
+        </image>
+      </view>
+      <view class="info" hover-class="none" hover-stop-propagation="false">
+        <view class="title" hover-class="none" hover-stop-propagation="false">
+          {{detail.name}}
+        </view>
+        <view class="userInfo" hover-class="none" hover-stop-propagation="false">
+          <view class="user-img">
+            <image class="" src="{{detail.creator.avatarUrl}}" mode="aspectFit" lazy-load="false" binderror="" bindload="">
+              
+            </image>
+          </view>
+          <view class="user-name">{{detail.creator.nickname}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="bottom-info" hover-class="none" hover-stop-propagation="false">
+      <view class="image-item" hover-class="none" hover-stop-propagation="false">
+        <image class="" src="../../assets/image/list-comment.png" mode="aspectFit" lazy-load="false" binderror="" bindload="">
+          
+        </image>
+      </view>
+      <view class="image-item" hover-class="none" hover-stop-propagation="false">
+        <image class="" src="../../assets/image/share.png" mode="aspectFit" lazy-load="false" binderror="" bindload="">
+          
+        </image>
+      </view>
+      <view class="image-item" hover-class="none" hover-stop-propagation="false">
+        <image class="" src="../../assets/image/down.png" mode="aspectFit" lazy-load="false" binderror="" bindload="">
+          
+        </image>
+      </view>
+      <view class="image-item" hover-class="none" hover-stop-propagation="false">
+        <image class="" src="../../assets/image/check.png" mode="aspectFit" lazy-load="false" binderror="" bindload="">
+          
+        </image>
+      </view>
+    </view>
+  </view>
+</view>

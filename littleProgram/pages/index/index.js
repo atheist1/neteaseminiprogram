@@ -323,6 +323,15 @@ Page({
   navgateInto:function(){
     this.getComment()
   },
+  //跳转到歌单
+  redirectPlayList:function(r){
+   
+    let pid = r.currentTarget.dataset.id
+    wx.navigateTo({
+      url: '../playList/index?pid='+pid
+    });
+
+  },
   onLoad:function(){
     let nowdate = new Date().getTime()
     const overTime = 1000*60*60*2

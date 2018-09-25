@@ -1,0 +1,32 @@
+/* pages/my/index.wxss */
+.my .myCreate{
+  background-color:rgba(0,0,0,.1);
+  height: 80rpx;
+  font-size: 14px; 
+  vertical-align: middle;
+}
+.playList-ctn {
+  margin-top: 40rpx;
+  padding:4rpx 20rpx;
+}
+.playList-ctn .img {
+  width: 180rpx;
+  height: 180rpx;
+}
+.playList-ctn image{
+  width: 180rpx;
+  height: 180rpx;
+}
+.playList-ctn .info {
+  margin-left: 30rpx;
+  font-size: 14px;
+  width: 100%;
+  border-bottom: 1px solid rgba(0,0,0,.1);
+}
+.playList-ctn .info .count{
+  color:#9e9e9e;
+  margin-top: 80rpx;
+}
+.playList-item {
+  display: flex;
+}

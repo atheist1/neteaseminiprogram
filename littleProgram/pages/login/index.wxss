@@ -5,7 +5,44 @@
   width: 80%;
  
 }
-.login-action button{
+.top {
+  display: flex;
+  position: relative;
+}
+.top .avatar {
+  width: 150rpx;
+  height: 150rpx;
+  
+}
+.top .avatar image{
+  width: 150rpx;
+  height: 150rpx;
+  border-radius: 150rpx;
+  vertical-align: middle;
+}
+.top .info {
+  font-size: 16px;
+  margin:10rpx 0 10rpx 30rpx;
+}
+.top .info .level {
+  border:1px solid #eee;
+  margin-top: 10rpx;
+  border-radius: 5px;
+  color:#9e9e9e;
+  font-size:14px;
+  text-align: center;
+}
+.top .sign {
+  position:absolute;
+  right:40rpx;
+  font-size: 14px;
+  border:1px solid #eee;
+  text-align: center;
+  width: 140rpx;
+  top: 40rpx;
+  border-radius: 5px;
+}
+.login-action button {
   border:1px solid #d43c33!important;
   border-radius: 10px!important;
   color:#d43c33!important;

@@ -4,7 +4,9 @@
     "pages/songs/index",
     "pages/comment/index",
     "pages/login/index",
-    "pages/recommend/index"
+    "pages/recommend/index",
+    "pages/my/index",
+    "pages/playList/index"
   ],
   "window":{
     "backgroundTextStyle":"light",
@@ -28,10 +30,12 @@
         "iconPath":"./assets/image/l0.png",
         "selectedIconPath":"./assets/image/l1.png"
         
-      },{
-        "pagePath": "pages/index/index",
-        "text": "帮助"
-
+      },
+      {
+        "pagePath": "pages/my/index",
+        "text": "我的",
+        "iconPath": "./assets/image/my.png",
+        "selectedIconPath": "./assets/image/mySel.png"
       },{
         "pagePath": "pages/login/index",
         "text": "账户",

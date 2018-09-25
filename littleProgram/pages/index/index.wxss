@@ -188,9 +188,6 @@ input{
   width: 750rpx;
   height: 300rpx;
 }
-.main .recommend {
- 
-}
 .main .recommend .title{
   position: relative;
   padding-left: 9px;
@@ -205,7 +202,7 @@ input{
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin: 0 14rpx 0 40rpx;
+  margin: 0 14rpx 0 30rpx;
   flex-wrap: wrap;
 }
  .recommend-item{
@@ -215,8 +212,8 @@ input{
   height: 337rpx;
 }
 .recommend-item image{
- width: 200rpx;
- height: 200rpx;
+ width: 213rpx;
+ height: 213rpx;
 }
 .recommend-item .count {
   position: absolute;

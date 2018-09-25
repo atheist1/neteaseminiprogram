@@ -1,0 +1,45 @@
+/* pages/playList/index.wxss */
+.top {
+  background: rgba(0,0,0,.8)
+}
+.top .top-info {
+  display: flex;
+  padding-top: 20rpx;
+}
+.top .top-info .img {
+  margin-left: 40rpx;
+}
+.top .top-info img,.top .top-info image {
+  width: 200rpx;
+  height: 200rpx;
+ 
+}
+.top .top-info  .info {
+  margin-left: 40rpx;
+}
+.top .top-info  .info .title {
+  font-size: 14px;
+  color:#fff;
+}
+
+.top .top-info  .info .userInfo {
+  font-size: 13px;
+  color:#FFF;
+  display: flex;
+  margin-top: 20rpx;
+}
+.top .top-info  .info .userInfo .user-name{
+  margin: 15rpx;
+}
+.top .top-info  .info .userInfo .user-img image {
+  width: 80rpx;
+  height: 80rpx;
+}
+.top .bottom-info{
+  display: flex;
+  justify-content: space-around;
+}
+.top .bottom-info image {
+  width:100rpx;
+  height: 100rpx;
+}

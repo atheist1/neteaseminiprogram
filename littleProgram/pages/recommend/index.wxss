@@ -1,0 +1,35 @@
+/* pages/recommend/index.wxss */
+.main .menu {
+  border-bottom: 1px solid rgba(0,0,0,.1);
+  padding: 20rpx 10rpx;
+}
+.main .menu .play {
+  width: 50rpx;
+  height: 50rpx;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 20rpx;
+}
+.main .menu .title{
+  display: inline-block;
+  font-size: 14px;
+
+}
+.main  .rec-ctn .rec-item {
+  display: flex;
+  padding: 20rpx;
+}
+.main  .rec-ctn .rec-item .alias,.main  .rec-ctn .rec-item .username {
+  color:#9e9e9e;
+}
+.main  .rec-ctn .rec-item .song-image{
+  margin-right: 20rpx;
+}
+.main  .rec-ctn .rec-item .song-image image {
+  width: 120rpx;
+  height: 120rpx;
+  
+}
+.main  .rec-ctn .rec-item {
+  font-size: 14px;
+}

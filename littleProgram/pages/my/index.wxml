@@ -1,0 +1,27 @@
+<!--pages/my/index.wxml-->
+<view class="container" hover-class="none" hover-stop-propagation="false">
+  <view class="my" hover-class="none" hover-stop-propagation="false">
+    <view class="myCreate" hover-class="none" hover-stop-propagation="false">
+      我创建的歌单
+    </view>
+    <view class="playList-ctn" hover-class="none" hover-stop-propagation="false">
+      <view class="playList-item" wx:for="{{myList}}">
+        <view class="img" hover-class="none" hover-stop-propagation="false">
+          <image class="bg" src="{{item.coverImgUrl}}" mode="aspectFit" lazy-load="true" binderror="" bindload="">
+            
+          </image>
+        </view>
+        <view class="info" hover-class="none" hover-stop-propagation="false">
+           <view class="title" hover-class="none" hover-stop-propagation="false">
+            {{item.name}}
+          </view>
+          <view class="count" hover-class="none" hover-stop-propagation="false">
+            {{item.trackCount}}首
+          </view>
+        </view>
+       
+      </view>
+    </view>
+  </view>
+  
+</view>

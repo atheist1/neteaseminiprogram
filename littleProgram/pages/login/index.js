@@ -1,5 +1,6 @@
 // pages/login/index.js
 import {normalizeUserCookie} from  '../../utils/util'
+import regeneratorRuntime from '../../utils/runtime-module'
 const app = getApp()
 Page({
 
@@ -10,7 +11,23 @@ Page({
     tel:'',
     password:'',
     isChecked:false,
-    showPanel:false
+    showPanel:false,
+    userInfo:'', 
+    top:{}
+  },
+  getUserInfo:function(){
+    let userInfo,_this = this
+    if(wx.getStorageSync('userId') && !this.data.userInfo){
+      async function getUser(){
+        userInfo = await app.get('/user/detail',{uid:wx.getStorageSync('userId')})
+        userInfo.profile.defaultAvatar ? userInfo.profile.avatarUrl='../../assets/image/defaultAva.png':userInfo.profile.avatarUrl
+        _this.setData({
+          userInfo:userInfo,
+        })
+      }
+      getUser()
+    }
+   
   },
   showPanels:function(){
     this.setData({
@@ -33,6 +50,7 @@ Page({
         }
 
         if(res.data.code === 200){
+          wx.setStorageSync('userId',res.data.account.id)
           wx.showToast({
             title: '登录成功',
             icon: 'success',
@@ -47,6 +65,7 @@ Page({
             }
           });
           wx.setStorageSync('overtime',new Date().getTime())
+         
         }
       },
       header:{
@@ -78,16 +97,31 @@ Page({
       tel:e.detail.value
     })
   },
-  inputsPas:function(e){
+  inputsPas:function(e){ 
     this.setData({
       password:e.detail.value
     })
+  },
+  //签到
+  sign:function(){
+    if(!this.data.userInfo.mobileSign){
+      app.get('/daily_signin')
+        .then((res)=>{
+          if(res.code === 200){
+            wx.showToast({
+              title:'签到成功积分+3',
+              icon:'success'
+            })
+          }
+        })
+    }
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    
+    
   },
 
   /**
@@ -101,7 +135,15 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    if(!wx.getStorageSync('cookie')){
+      this.setData({
+        userInfo:''
+      })
+    }
+    if(!this.data.userInfo){
+      this.getUserInfo()
+    }
+    
   },
 
   /**

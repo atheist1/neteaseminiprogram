@@ -1,0 +1,30 @@
+<view class="main" hover-class="none" hover-stop-propagation="false">
+  <view class="menu">
+    <image class="play" src="../../assets/image/dailyPlay.png" mode="aspectFit" lazy-load="false" binderror="" bindload="">
+      
+    </image>
+    <text class="title" selectable="false" space="false" decode="false">
+      播放全部
+    </text>
+  </view>
+  <view class="rec-ctn">
+    <view class="rec-item" wx:for="{{recommendData}}">
+      <view class="song-image">
+        <image class="" src="{{item.album.blurPicUrl}}" mode="aspectFit" lazy-load="{{true}}" binderror="" bindload="">
+          
+        </image>
+      </view>
+      <view class="song-info">
+        <view class="song-name">
+          {{item.name}}
+        </view>
+        <view class="song-artists" >
+          <text wx:for="{{item.artists}}" wx:for-item="child" wx:for-index="indexs" class="username">{{child.name}}{{indexs === item.artists.length-1 ? '' : '/'}}  </text>
+          <text wx:for="{{item.alias}}" wx:for-item="child1" wx:for-index="indexs1" wx:if="{{item.alias.length}}" class="alias">
+            {{child1}}{{indexs1 === item.alias.length-1 ? '' : '/'}}
+          </text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

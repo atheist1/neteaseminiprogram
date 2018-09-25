@@ -1,18 +1,41 @@
 <view class="" hover-class="none" hover-stop-propagation="false">
-  <view class="login-action" hover-class="none" hover-stop-propagation="false"  wx:if="{{!showPanel}}">
-    <button class="weui-btn tel-in" type="default" plain="true" bind:tap="showPanels">手机号登陆</button>
-     <button class="weui-btn register" type="default" plain="true">注册</button>
+  <view class="" hover-class="none" hover-stop-propagation="false" wx:if="{{userInfo.code === 200}}">
+    <view class="top" hover-class="none" hover-stop-propagation="false">
+        <view class="avatar" hover-class="none" hover-stop-propagation="false">
+          <image class="" src="{{userInfo.profile.avatarUrl}}" mode="aspectFit" lazy-load="false" binderror="" bindload="">
+            
+          </image>
+        </view>
+        <view class="info" hover-class="none" hover-stop-propagation="false">
+          <view >
+            {{userInfo.profile.nickname}}
+          </view>
+          <view class="level">
+            Lv {{userInfo.level}}
+          </view>
+        </view>
+        <view class="sign" hover-class="none" hover-stop-propagation="false" bind:tap="sign">
+          {{userInfo.mobileSign?'已签到':'签到'}} 
+        </view>
+    </view>
   </view>
-  <view class="login-panel" hover-class="none" hover-stop-propagation="false" wx:if="{{showPanel}}">
-    <view class="weui-cell__bd weui-cell__bd_in-select-before">
-        <input class="weui-input" placeholder="请输入号码" value="{{tel}}" bindinput="inputsTel" bind:blur="checkCanLogin" type="number"/>
+  <view class="login" hover-class="none" hover-stop-propagation="false" wx:else>
+    <view class="login-action" hover-class="none" hover-stop-propagation="false"  wx:if="{{!showPanel}}">
+      <button class="weui-btn tel-in" type="default" plain="true" bind:tap="showPanels">手机号登陆</button>
+      <button class="weui-btn register" type="default" plain="true">注册</button>
     </view>
-    <view class="weui-cell__bd weui-cell__bd_in-select-before">
-        <input class="weui-input" placeholder="请输入密码"  type="password" bindinput="inputsPas" value="{{password}}" bind:blur="checkCanLogin"/>
-    </view>
-     <view class="weui-cell__bd weui-cell__bd_in-select-before">
-        <button class="weui-btn tel-in {{isChecked?'can':'cant'}}" type="default" plain="true" bind:tap="login">登陆</button>
-    </view>
+    <view class="login-panel" hover-class="none" hover-stop-propagation="false" wx:if="{{showPanel}}">
+      <view class="weui-cell__bd weui-cell__bd_in-select-before">
+          <input class="weui-input" placeholder="请输入号码" value="{{tel}}" bindinput="inputsTel" bind:blur="checkCanLogin" type="number"/>
+      </view>
+      <view class="weui-cell__bd weui-cell__bd_in-select-before">
+          <input class="weui-input" placeholder="请输入密码"  type="password" bindinput="inputsPas" value="{{password}}" bind:blur="checkCanLogin"/>
+      </view>
+      <view class="weui-cell__bd weui-cell__bd_in-select-before">
+          <button class="weui-btn tel-in {{isChecked?'can':'cant'}}" type="default" plain="true" bind:tap="login">登陆</button>
+      </view>
+    </view> 
   </view>
+  
 </view>
 

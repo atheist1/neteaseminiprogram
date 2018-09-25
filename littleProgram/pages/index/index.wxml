@@ -113,7 +113,7 @@
         推荐歌单
       </text>
       <view class="recommend-ctn" hover-class="none" hover-stop-propagation="false">
-        <view class="recommend-item" wx:for="{{recommend}}" data-id="{{item.id}}">
+        <view class="recommend-item" wx:for="{{recommend}}" data-id="{{item.id}}" bind:tap="redirectPlayList">
           <image class="" src="{{item.picUrl}}" mode="aspectFit" lazy-load="true" binderror="" bindload="">
             
           </image>
