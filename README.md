@@ -66,7 +66,21 @@
 # 项目截图
 ### 主页
 ![主页](/littleProgram/screenshot/index.png)
-### 播放器&私人FM
+### 主页->播放器&私人FM
 ![播放器&私人FM](/littleProgram/screenshot/fm.png)
+### 主页->登陆
+![主页->登陆](/littleProgram/screenshot/isLogin.png)
+### 主页->歌单
+![主页->歌单](/littleProgram/screenshot/playList.png)
+### 主页->歌单2
+![主页->歌单](/littleProgram/screenshot/playList2.png)
 ### 歌词&滚动
-![播放器&私人FM](/littleProgram/screenshot/lrc.png)
+![歌词&滚动](/littleProgram/screenshot/lrc.png)
+### 歌曲->评论
+![歌曲->评论](/littleProgram/screenshot/comment.png)
+### 歌曲->我的评论
+![歌曲->评论](/littleProgram/screenshot/myComment.png)
+### 用户信息
+![用户信息](/littleProgram/screenshot/user.png)
+### 我的歌单
+![我的歌单](/littleProgram/screenshot/myPlayList.png)
