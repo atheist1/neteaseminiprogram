@@ -1,5 +1,5 @@
 <!--pages/playList/index.wxml-->
-<view class="container" hover-class="none" hover-stop-propagation="false">
+<view class="container" hover-class="none" hover-stop-propagation="false" wx:if="{{modalShow}}">
   <view class="top">
     <view class="top-info" hover-class="none" hover-stop-propagation="false">
       <view class="img">
@@ -26,22 +26,89 @@
         <image class="" src="../../assets/image/list-comment.png" mode="aspectFit" lazy-load="false" binderror="" bindload="">
           
         </image>
+        <text class="commentAccount" selectable="false" space="false" decode="false">
+            {{detail.commentCount}}
+        </text>
       </view>
       <view class="image-item" hover-class="none" hover-stop-propagation="false">
         <image class="" src="../../assets/image/share.png" mode="aspectFit" lazy-load="false" binderror="" bindload="">
           
         </image>
+        <text class="shareCount" selectable="false" space="false" decode="false">
+            {{detail.shareCount}}
+        </text>
       </view>
       <view class="image-item" hover-class="none" hover-stop-propagation="false">
         <image class="" src="../../assets/image/down.png" mode="aspectFit" lazy-load="false" binderror="" bindload="">
           
         </image>
+        <text class="" selectable="false" space="false" decode="false">
+          下载
+        </text>
       </view>
       <view class="image-item" hover-class="none" hover-stop-propagation="false">
         <image class="" src="../../assets/image/check.png" mode="aspectFit" lazy-load="false" binderror="" bindload="">
           
         </image>
+        <text class="" selectable="false" space="false" decode="false">
+          多选
+        </text>
       </view>
     </view>
   </view>
+  <view class="bg" hover-class="none" hover-stop-propagation="false">
+    <view class="bottom" hover-class="none" hover-stop-propagation="false">
+      <view class="menu-title">
+        <view class="left" hover-class="none" hover-stop-propagation="false" bind:tap="playAll">
+          <image src="../../assets/image/pl-playall.png" mode="aspectFit"></image>
+          <view class="textView playall" selectable="false" space="false" decode="false" >
+            播放全部
+          </view>
+          <view class="textView trackCount" selectable="false" space="false" decode="false">
+            （共{{detail.trackCount}}首）
+          </view>
+          
+        </view>
+        <view class="right" hover-class="none" hover-stop-propagation="false">
+          <view class="{{isSubScribed?'subcirebed':'unsubcirebed'}}" hover-class="none" hover-stop-propagation="false" bind:tap="subscribe">
+            <view class="" selectable="false" space="false" decode="false" wx:if="{{!isSubScribed}}">
+              +收藏({{detail.subscribedCount}})
+            </view>
+            <view class="" selectable="false" space="false" decode="false" wx:else>
+              收藏人数{{detail.subscribedCount}} 
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="menu-ctn" hover-class="none" hover-stop-propagation="false">
+        <view class="menu-item" wx:for="{{detail.tracks}}" data-id="{{item.id}}" data-aid="{{item.al.id}}" data-currentSong="{{item}}" data-indexs="{{index}}" bind:tap="playSingle">
+          <view class="index" hover-class="none" hover-stop-propagation="false">
+           {{index+1}}
+          </view>
+          <view class="song-info" hover-class="none" hover-stop-propagation="false">
+            <view class="song-title" hover-class="none" hover-stop-propagation="false">
+              {{item.name}}
+            </view>
+            <view class="song-artist" hover-class="none" hover-stop-propagation="false">
+                <view class="artist-item" hover-class="none" hover-stop-propagation="false" wx:for="{{item.ar}}" wx:for-item="child" wx:for-index="indexs">
+                  {{child.name}}{{indexs === item.ar.length-1?'':'/'}}
+                </view>
+                <view class="artist-al" hover-class="none" hover-stop-propagation="false">
+                  {{item.al.name}}
+                </view>
+            </view>
+          </view>
+          <view class="icon" hover-class="none" hover-stop-propagation="false">
+            <image class="mv" src="../../assets/image/l0.png" mode="aspectFit" lazy-load="false" binderror="" bindload="" wx:if="{{item.mv!=0}}">
+              
+            </image>
+            <image class="more" src="../../assets/image/pointx3.png" mode="aspectFit" lazy-load="false" binderror="" bindload="">
+              
+            </image>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  
 </view>

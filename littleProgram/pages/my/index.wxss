@@ -1,31 +1,28 @@
 /* pages/my/index.wxss */
 .my .myCreate{
   background-color:rgba(0,0,0,.1);
-  height: 80rpx;
-  font-size: 14px; 
-  vertical-align: middle;
+  height: 50rpx;
+  line-height: 50rpx;
+  font-size: 12px;
 }
 .playList-ctn {
-  margin-top: 40rpx;
+  margin: 40rpx 0;
   padding:4rpx 20rpx;
 }
-.playList-ctn .img {
-  width: 180rpx;
-  height: 180rpx;
-}
+
 .playList-ctn image{
-  width: 180rpx;
-  height: 180rpx;
+  width: 100rpx;
+  height: 100rpx;
 }
 .playList-ctn .info {
   margin-left: 30rpx;
   font-size: 14px;
   width: 100%;
   border-bottom: 1px solid rgba(0,0,0,.1);
+  height: 100rpx;
 }
 .playList-ctn .info .count{
   color:#9e9e9e;
-  margin-top: 80rpx;
 }
 .playList-item {
   display: flex;

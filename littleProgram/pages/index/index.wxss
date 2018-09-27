@@ -220,7 +220,7 @@ input{
   font-size: 12px;
   color:#fff;
   left:17rpx;
-  top:-41rpx;
+  top:-77rpx;
 }
 .recommend-item .description{
   font-size: 12px;

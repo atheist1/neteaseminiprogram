@@ -186,17 +186,12 @@ Page({
         if(app.globalData.currentPlayList.currentPlay){
           id =  app.globalData.currentPlayList.currentPlay.id
           aid =  app.globalData.currentPlayList.currentPlay.album.id
-        }else{
-          
-        }
-        
-      }
-      
+        } 
+      }    
       wx.navigateTo({
         url:'../songs/index?id='+id+'&album='+aid,
       });
        
-   
   },
   //为自定义组件绑定事件
   taps:function(r){
@@ -229,7 +224,6 @@ Page({
               app.globalData.currentPlayList.backPlayInfo.context.destroy()
             }
           }
-          
           app.globalData.currentPlayList = {
             listArr:listArr,
             currentPlay:listArr[0],
@@ -262,6 +256,8 @@ Page({
      
       app.globalData.currentPlayList.listId.push(app.globalData.currentPlayList.currentPlay.id)
       app.globalData.currentPlayList.listArr.push(app.globalData.currentPlayList.currentPlay)
+    }else{
+      app.globalData.currentPlayList.currentPlay.index = app.globalData.currentPlayList.listId.indexOf(r.currentTarget.dataset.id)
     }
     this.getComment(r)
     

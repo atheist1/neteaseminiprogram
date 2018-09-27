@@ -43,3 +43,101 @@
   width:100rpx;
   height: 100rpx;
 }
+.top .bottom-info .image-item{
+  position: relative;
+}
+.top .bottom-info .image-item text{
+  position: absolute;
+  font-size: 14px;
+  top:30rpx;
+  left:24rpx;
+  color:#fff;
+}
+.bg{
+  background:rgba(0,0,0,.8);
+}
+.bottom  {
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  border-top:1px solid #333;
+  background: #fff;
+}
+.bottom .menu-title{
+  display: flex;
+
+}
+.bottom .textView {
+  font-size: 14px;
+}
+.bottom .left {
+  display: flex;
+  margin: 10px 0;
+  flex: 1;
+}
+.bottom .left .playall {
+  margin-left: 10rpx
+}
+.bottom .left .trackCount{
+  color : #9e9e9e;
+  font-size:12px;
+
+} 
+.bottom .left image {
+  width: 40rpx;
+  height: 40rpx;
+}
+.bottom .right .unsubcirebed {
+  line-height: 66rpx;
+  background-color: #d43c33;
+  border-top-right-radius: 5px;
+  padding:5rpx 20rpx;
+}
+.bottom .right .subcirebed {
+  line-height: 66rpx;
+  background-color: #fff;
+  border-top-right-radius: 5px;
+  padding:5rpx 20rpx;
+  
+}
+.bottom .right view {
+  color:#fff;
+  font-size: 12px;
+}
+.bottom .right .subcirebed view{
+  color:#9e9e9e;
+}
+.bottom .menu-ctn .menu-item {
+  display: flex;
+  height: 100rpx;
+  font-size: 14px;
+  position: relative;
+}
+.bottom .menu-ctn .menu-item .song-info{
+  border-top: 1px solid rgba(250, 246, 246, 0.726);
+  width: 100%;
+}
+.bottom .menu-ctn .menu-item .index {
+  height: 100rpx;
+  margin: 20rpx 10rpx;
+  color:rgba(0,0,0,.4);
+}
+.bottom .menu-ctn .menu-item .song-title{
+  color:#333;
+}
+.bottom .menu-ctn .menu-item .song-artist{
+  color:rgba(0,0,0,.4);
+  display: flex;
+}
+.bottom .menu-ctn .menu-item .icon {
+  display: flex;
+  position: absolute;
+  right: 50rpx;
+  margin: 25rpx 0;
+}
+.bottom .menu-ctn .menu-item .icon image{
+  width: 50rpx;
+  height: 50rpx;
+}
+.bottom .menu-ctn .menu-item .icon .more{
+  margin-left: 20rpx;
+}

@@ -10,7 +10,12 @@ Page({
     myList:[],
     otherList:[]
   },
-
+  redirectPlayList:function(r){
+    let pid = r.currentTarget.dataset.id
+    wx.navigateTo({
+      url: '../playList/index?pid='+pid
+    });
+  },
   /**
    * 生命周期函数--监听页面加载
    */
