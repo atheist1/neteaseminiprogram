@@ -1,3 +1,25 @@
+
+# 项目截图
+### 主页
+![主页](/littleProgram/screenshot/index.png)
+### 主页->播放器&私人FM
+![播放器&私人FM](/littleProgram/screenshot/fm.png)
+### 主页->登陆
+![主页->登陆](/littleProgram/screenshot/isLogin.png)
+### 主页->歌单
+![主页->歌单](/littleProgram/screenshot/playList.png)
+### 主页->歌单2
+![主页->歌单](/littleProgram/screenshot/playList2.png)
+### 歌词&滚动
+![歌词&滚动](/littleProgram/screenshot/lrc.png)
+### 歌曲->评论
+![歌曲->评论](/littleProgram/screenshot/comment.png)
+### 歌曲->我的评论
+![歌曲->评论](/littleProgram/screenshot/myComment.png)
+### 用户信息
+![用户信息](/littleProgram/screenshot/user.png)
+### 我的歌单
+![我的歌单](/littleProgram/screenshot/myPlayList.png)
 # 前言
 这是一个基于小程序的网易云音乐，后台数据暂时采用的是@Binaryify所提供的api接口，大神已经把网易云的接口爬取下来了 [api地址](https://github.com/Binaryify/NeteaseCloudMusicApi)，把他项目拉取下来run一下就可以跑起来  
 暂时使用localhost做模拟机调试（18/09/13）等到以后有时间了架设一个服务器自己搭一个node环境，配置ssl满足小程序的需求。
@@ -63,24 +85,3 @@
 -----
 <del>评论</del>
 
-# 项目截图
-### 主页
-![主页](/littleProgram/screenshot/index.png)
-### 主页->播放器&私人FM
-![播放器&私人FM](/littleProgram/screenshot/fm.png)
-### 主页->登陆
-![主页->登陆](/littleProgram/screenshot/isLogin.png)
-### 主页->歌单
-![主页->歌单](/littleProgram/screenshot/playList.png)
-### 主页->歌单2
-![主页->歌单](/littleProgram/screenshot/playList2.png)
-### 歌词&滚动
-![歌词&滚动](/littleProgram/screenshot/lrc.png)
-### 歌曲->评论
-![歌曲->评论](/littleProgram/screenshot/comment.png)
-### 歌曲->我的评论
-![歌曲->评论](/littleProgram/screenshot/myComment.png)
-### 用户信息
-![用户信息](/littleProgram/screenshot/user.png)
-### 我的歌单
-![我的歌单](/littleProgram/screenshot/myPlayList.png)
